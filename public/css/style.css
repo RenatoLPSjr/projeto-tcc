@@ -1,0 +1,65 @@
+body{
+    font-family: 'Helvetica', Times, serif;
+    font-weight: 200;
+}
+
+.foto{
+    height: 130px;
+}
+
+.lista-lateral{
+    width: 170px;
+    background-color: rgba(238, 238, 238, 0.91);
+    position: absolute;
+    top: 60px;
+    left: 0;
+    height: calc(100% - 60px);
+}
+
+.form-lateral{
+    list-style: none;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    left: -25px;
+}
+
+.lista{
+    margin-bottom: 5px;
+    padding: 0px 25px;
+    border: 1px solid black;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 2px 1px;
+
+}
+
+.lista:hover{
+    margin-bottom: 5px;
+    padding: 0px 25px;
+    border: 1px solid rgb(108, 106, 106);
+    width: 100%;
+    background-color: rgb(119, 119, 119);
+    border-radius: 5px;
+    box-shadow: 2px 2px;
+
+}
+
+.principal{
+    font-size: larger;
+    font-weight: 600;
+}
+
+
+
+.button{
+    display: flex;
+    border: 1px solid red;
+    border-radius: 12px;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    margin-bottom: 5px;
+    color: red;
+}
