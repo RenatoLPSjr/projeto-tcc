@@ -21,7 +21,7 @@ class IndexController extends Action
 		$this->render('registro', 'layout');
 	}
 
-	//Fução registrar() é responsavel por salvar o cadastro dos usuarios no bano de dados
+	//Fução registrar() é responsavel por salvar o cadastro dos usuarios no banco de dados
 	public function registrar()
 	{
 	

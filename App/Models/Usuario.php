@@ -11,7 +11,6 @@
         private $email;
         private $senha;
         private $tipo;
-        private $especialidade;
         private $area;
         private $telefone;
         private $pix;
