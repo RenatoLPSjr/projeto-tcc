@@ -44,6 +44,7 @@ class AuthController extends Action
 
             header('Location: /esp/home');
         }else{
+            
             header('Location: /?login=erro');
         }
         
@@ -67,11 +68,8 @@ class AuthController extends Action
 
         echo $usuario['id'];
 
-        
-
+    
     }
-
-
 }
 
 ?>

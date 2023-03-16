@@ -96,6 +96,24 @@ class Route extends Bootstrap {
 			'action' => 'sair'
 		);
 
+		$routes['criacao'] = array(
+			'route' => '/criacao',
+			'controller' => 'PedidoController',
+			'action' => 'criacao'
+		);
+
+		$routes['visualizar'] = array(
+			'route' => '/visualizar',
+			'controller' => 'PedidoController',
+			'action' => 'visualizar'
+		);
+
+		$routes['criar_pedido'] = array(
+			'route' => '/criar_pedido',
+			'controller' => 'PedidoController',
+			'action' => 'criar'
+		);
+
 
 
 
