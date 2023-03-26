@@ -78,6 +78,12 @@ class Route extends Bootstrap {
 			'controller' => 'espController',
 			'action' => 'pedidos'
 		);
+
+		$routes['aceita_pedido'] = array(
+			'route' => '/esp/aceita_pedido',
+			'controller' => 'espController',
+			'action' => 'aceitaPedido'
+		);
 		
 		//rotas de autenticação//
 		

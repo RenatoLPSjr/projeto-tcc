@@ -12,6 +12,7 @@
                 <th>Pago</th>
                 <th>Info</th>
                 <th>Chat</th>
+                <th>Opções</th>
             </tr>
         </thead>
         <tbody>
@@ -20,7 +21,7 @@
                     <td><?= $pedido['prazo_garantia'] ?></td>
                     <td><?= $pedido['prazo_entrega'] ?></td>
                     <td class="entrega"><?= $pedido['entregue'] ?></td>
-                    <td><?= $pedido['status'] ?></td>
+                    <td class="status" value="<?= $pedido['status'] ?>"><?= $pedido['status'] ?></td>
                     <td class="titulo"><?= $pedido['titulo'] ?></td>
                     <td><?= $pedido['oferta'] ?></td>
                     <td><?= $pedido['paginas'] ?></td>
@@ -34,6 +35,22 @@
                     </td>
                     <td><?= $pedido['fonte'] ?></td>
                     <td><?= $pedido['fonte'] ?></td>
+                    <td>
+                        <?php 
+                            $valor_coluna = $pedido['status'];
+
+                            if ($valor_coluna == 0 ) { ?>
+                                
+                                <form method="post" action="/esp/aceita_pedido">
+                                    <p>Aceita o serviço?</p>
+                                    <button type="submit" name="aceita" value="1">Sim</button>
+                                    <button type="submit" name="aceita" value="2">Não</button>
+                                </form>
+                        <?php }else if($valor_coluna == 2) {?>
+                                --  
+                        <?php } ?>
+                        
+                    </td>
                 </tr>
             <?php } ?>
         </tbody>
@@ -60,7 +77,27 @@
         }
     }
 
+    function corStatus(){
+        var cells = document.querySelectorAll('.status');
+
+        for (var i = 0; i < cells.length; i++) {
+            var cell = cells[i];
+
+        // verifica se o conteúdo da célula é igual a 1 ou 2
+            if (cell.innerHTML == '2') {
+                cell.classList.add('azul'); // adiciona classe "n"
+            } else if (cell.innerHTML == '3') {
+                cell.classList.add('s'); // adiciona classe "s"
+            }else if (cell.innerHTML == '4') {
+                cell.classList.add('vermelho'); // adiciona classe "s"
+            }
+        }
+    }
+    
+
+
     manipularEntrega()
+    corStatus()
 
 
 

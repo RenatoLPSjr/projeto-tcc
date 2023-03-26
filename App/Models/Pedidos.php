@@ -90,7 +90,10 @@
                 pedidos.observacao
             FROM 
                 pedidos
-                JOIN usuarios ON pedidos.id_usuario = usuarios.id;
+            JOIN 
+                usuarios 
+            ON 
+                pedidos.id_usuario = usuarios.id;
             ";
             $stmt = $this->db->prepare($query);
             $stmt->execute();
@@ -98,6 +101,64 @@
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);  
             
+        }
+
+
+        public function getById()
+        {
+            $query = "
+            SELECT 
+                DATE_FORMAT(prazo_garantia, '%d/%m/%y') AS prazo_garantia,
+                DATE_FORMAT(prazo_entrega, '%d/%m/%y') AS prazo_entrega, 
+                entregue,
+                status,
+                titulo,
+                oferta,
+                paginas,
+                fonte
+            FROM
+                pedidos
+            WHERE
+                id_usuario = :id_usuario
+            AND 
+                status != 1
+            ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+            $stmt->execute();
+
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
+        public function atualizaStatus()
+        {
+            $query = "
+            UPDATE 
+                pedidos 
+            SET 
+                status = 2 
+            WHERE 
+                id_usuario = :id_usuario";
+                $stmt = $this->db->prepare($query);
+                $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+                $stmt->execute();
+    
+        }
+
+        public function retirarStatus()
+        {
+            $query = "
+            UPDATE 
+                pedidos 
+            SET 
+                status = 1,
+            WHERE 
+                id_usuario = :id_usuario";
+                $stmt = $this->db->prepare($query);
+                $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+                $stmt->execute();
+    
         }
 
 
