@@ -22,7 +22,7 @@ class PedidoController extends Action
     public function visualizar()
 	{
         $pedido = Container::getModel('Pedidos');
-		$pedidos = $pedido->getAll();
+		$pedidos = $pedido->getAll(); 
 
 		$this->view->pedidos = $pedidos;
 

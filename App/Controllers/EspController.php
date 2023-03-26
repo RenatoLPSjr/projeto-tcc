@@ -16,6 +16,16 @@ class EspController extends Action
         $this->render('home','layout3');
     }
 
+    public function pedidos() 
+    {
+        $pedido = Container::getModel('Pedidos');
+		$pedidos = $pedido->getAll(); 
+
+		$this->view->pedidos = $pedidos;
+
+        $this->render('pedidos','layout3');
+    }
+
 }
 
 ?>

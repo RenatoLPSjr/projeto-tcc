@@ -73,8 +73,24 @@
         public function getAll()
         {
             $query = "
-                select id, fonte, prazo_garantia, prazo_entrega, prazo_real, status, entregue, titulo, receita_bruta, 
-                oferta, paginas, id_usuario, pagamento from pedidos
+            SELECT 
+                pedidos.id, 
+                pedidos.fonte, 
+                DATE_FORMAT(pedidos.prazo_garantia, '%d/%m/%y') AS prazo_garantia, 
+                DATE_FORMAT(pedidos.prazo_entrega, '%d/%m/%y') AS prazo_entrega, 
+                DATE_FORMAT(pedidos.prazo_real, '%d/%m/%y') AS prazo_real, 
+                pedidos.status, 
+                pedidos.entregue, 
+                pedidos.titulo, 
+                pedidos.receita_bruta, 
+                pedidos.oferta, 
+                pedidos.paginas, 
+                usuarios.nome AS usuario_nome, 
+                pedidos.pagamento, 
+                pedidos.observacao
+            FROM 
+                pedidos
+                JOIN usuarios ON pedidos.id_usuario = usuarios.id;
             ";
             $stmt = $this->db->prepare($query);
             $stmt->execute();

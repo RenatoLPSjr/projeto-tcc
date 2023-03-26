@@ -60,3 +60,21 @@ body{
     text-decoration: none;
     color: black;
 }
+
+.tabelas, th, td {
+    font-size: small;
+    border: 3px solid white;
+    padding: 5px;
+    text-align: center;
+    background-color: rgba(238, 238, 238, 0.91);
+}
+
+.s {
+    background-color: green;
+}
+  
+.n {
+    background-color: yellow;
+}
+
+.titulo{ width: 35%; }

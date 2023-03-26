@@ -72,6 +72,12 @@ class Route extends Bootstrap {
 			'controller' => 'espController',
 			'action' => 'home'
 		);
+
+		$routes['pedidos-esp'] = array(
+			'route' => '/esp/pedidos',
+			'controller' => 'espController',
+			'action' => 'pedidos'
+		);
 		
 		//rotas de autenticação//
 		
@@ -113,6 +119,7 @@ class Route extends Bootstrap {
 			'controller' => 'PedidoController',
 			'action' => 'criar'
 		);
+
 
 
 
