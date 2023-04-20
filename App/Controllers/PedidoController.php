@@ -42,7 +42,7 @@ class PedidoController extends Action
         $pedido->__set('id_usuario', $_POST['id_usuario']);
         $pedido->__set('oferta', $_POST['oferta']);
 		$pedido->__set('paginas', $_POST['paginas']);
-		$pedido->__set('id_pedido', $_POST['id_pedido']);
+		$pedido->__set('id', $_POST['id']);
 		$pedido->__set('disciplina', $_POST['disciplina']);
 		$pedido->__set('tipo', $_POST['tipo']);
         $pedido->__set('metodologia', $_POST['metodologia']);

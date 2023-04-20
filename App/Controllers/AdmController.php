@@ -62,6 +62,26 @@ class AdmController extends Action
 		header('Location: /adm/funcionario');
 	}
 
+
+		public function trocaPagamento()
+		{
+			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				// Obtém o valor enviado pelo formulário
+				$pagamento = isset($_POST['pagamento']) ? $_POST['pagamento'] : null;
+			
+				// Verifica se foi selecionada uma opção válida
+				if ($pagamento !== null && ($pagamento === '0' || $pagamento === '1')) {
+					// Conecta no banco de dados e atualiza o registro
+					$pedido = Container::getModel('Pedido');
+					$pedido->__set('id', $_POST['id']);
+					$pedido->__set('pagamento', $_POST['pagamento']);
+					$pedido->atualzarPagamento();
+
+					header('Location: /visualizar');
+				}
+			}
+		}
+
 	
 }
 

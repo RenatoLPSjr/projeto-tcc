@@ -41,7 +41,7 @@ class EspController extends Action
                 
                 session_start();
                 $pedido = Container::getModel('Pedidos');
-                $pedido->__set('id_usuario', $_SESSION['id']);
+                $pedido->__set('id', $_POST['id']);
                 $pedido->atualizaStatus();
 
                 header('Location: /esp/pedidos');
@@ -50,7 +50,7 @@ class EspController extends Action
 
                 session_start();
                 $pedido = Container::getModel('Pedidos');
-                $pedido->__set('id_usuario', $_SESSION['id']);
+                $pedido->__set('id', $_POST['id']);
                 $pedido->retirarStatus();
 
                 header('Location: /esp/pedidos');

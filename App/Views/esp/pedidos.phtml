@@ -25,14 +25,8 @@
                     <td class="titulo"><?= $pedido['titulo'] ?></td>
                     <td><?= $pedido['oferta'] ?></td>
                     <td><?= $pedido['paginas'] ?></td>
-                    <td>
-                        <select>
-                            <option value="">Pagamento</option>
-                            <option value="opcao1">Pago</option>
-                            <option value="opcao2">Não pago</option>
-                            
-                        </select>
-                    </td>
+                    <td><?= $pedido['pagamento'] ?></td>
+                    <td><?= $pedido['id'] ?></td>
                     <td><?= $pedido['fonte'] ?></td>
                     <td><?= $pedido['fonte'] ?></td>
                     <td>
@@ -42,9 +36,11 @@
                             if ($valor_coluna == 0 ) { ?>
                                 
                                 <form method="post" action="/esp/aceita_pedido">
+                                    <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
                                     <p>Aceita o serviço?</p>
-                                    <button type="submit" name="aceita" value="1">Sim</button>
-                                    <button type="submit" name="aceita" value="2">Não</button>
+                                    <button type="submit" name="aceita" onclick="confirmar()" value="1">Sim</button>
+                                    <button type="submit" name="aceita" onclick="confirmar()" value="2">Não</button>
+                                    <a ><?= $pedido['id'] ?></a>
                                 </form>
                         <?php }else if($valor_coluna == 2) {?>
                                 --  
@@ -93,6 +89,15 @@
             }
         }
     }
+
+
+    function confirmar() {
+        if (confirm("tem certeza?")) {
+            // Se o usuário confirmar, realizar a ação desejada
+            // Exemplo: enviar uma requisição AJAX para o servidor para apagar um registro
+        }
+    }
+
     
 
 

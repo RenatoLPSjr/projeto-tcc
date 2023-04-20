@@ -25,6 +25,7 @@
         private $descricao;
         private $observacao;
         private $arquivos;
+        private $pagamento;
 
         public function __get($atributo)
         {
@@ -41,10 +42,10 @@
         {
             $query = 'insert into pedidos
             (id, titulo, status, receita_bruta, fonte, id_usuario, oferta, paginas, disciplina, tipo, 
-            metodologia, prazo_real, prazo_entrega, prazo_garantia, tema, descricao, observacao, arquivos)
+            metodologia, prazo_real, prazo_entrega, prazo_garantia, tema, descricao, observacao, arquivos, pagamento)
             values
             (:id, :titulo, :status, :receita_bruta, :fonte, :id_usuario, :oferta, :paginas, :disciplina, :tipo, 
-            :metodologia, :prazo_real, :prazo_entrega, :prazo_garantia, :tema, :descricao, :observacao, :arquivos)';
+            :metodologia, :prazo_real, :prazo_entrega, :prazo_garantia, :tema, :descricao, :observacao, :arquivos, :pagamento)';
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':id', $this->__get('id'));
             $stmt->bindValue(':titulo', $this->__get('titulo'));
@@ -64,6 +65,7 @@
             $stmt->bindValue(':descricao', $this->__get('descricao'));
             $stmt->bindValue(':observacao', $this->__get('observacao'));
             $stmt->bindValue(':arquivos', $this->__get('arquivos'));
+            $stmt->bindValue(':arquivos', 0);
 
             $stmt->execute();
 
@@ -115,13 +117,14 @@
                 titulo,
                 oferta,
                 paginas,
-                fonte
+                fonte,
+                id
             FROM
                 pedidos
             WHERE
                 id_usuario = :id_usuario
             AND 
-                status != 1
+                status != 6
             ";
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
@@ -137,29 +140,44 @@
             UPDATE 
                 pedidos 
             SET 
-                status = 2 
+                status = 1 
             WHERE 
-                id_usuario = :id_usuario";
+                id = :id";
                 $stmt = $this->db->prepare($query);
-                $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+                $stmt->bindValue(':id', $this->__get('id'));
                 $stmt->execute();
     
         }
 
-        public function retirarStatus()
-        {
-            $query = "
-            UPDATE 
-                pedidos 
-            SET 
-                status = 1,
-            WHERE 
-                id_usuario = :id_usuario";
+            public function retirarStatus()
+            {
+                $query = "
+                UPDATE 
+                    pedidos 
+                SET 
+                    status = 6
+                WHERE 
+                    id = :id";
+                    $stmt = $this->db->prepare($query);
+                    $stmt->bindValue(':id', $this->__get('id'));
+                    $stmt->execute();
+        
+            }
+
+            public function atualizarPagamento()
+            {
+                $query = "
+                UPDATE 
+                    pedidos 
+                SET 
+                    pagamento = :pagamento
+                WHERE 
+                    id = :id";
                 $stmt = $this->db->prepare($query);
-                $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+                $stmt->bindValue(':pagamento', $this->__get('pagamento'));
+                $stmt->bindValue(':id', $this->__get('id'));
                 $stmt->execute();
-    
-        }
+            }
 
 
     }?>

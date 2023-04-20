@@ -63,6 +63,12 @@ class Route extends Bootstrap {
 			'action' => 'configurar'
 		);
 
+		$routes['troca_pagamento'] = array(
+			'route' => '/troca_pagamento',
+			'controller' => 'admController',
+			'action' => 'trocaPagamento'
+		);
+
 		//rotas de especialista//
 		
 		////////////////////////
