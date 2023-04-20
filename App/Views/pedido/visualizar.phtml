@@ -37,14 +37,14 @@
                     <td class="resultado"></td>
                     <td><?= $pedido['paginas'] ?></td>
                     <td><?= $pedido['usuario_nome'] ?></td>
-                    <td>
-                        <select>
-                            <option value="">Pago</option>
-                            <option value="opcao1">Opção 1</option>
-                            <option value="opcao2">Opção 2</option>
-                            <option value="opcao3">Opção 3</option>
-                        </select>
-                    </td>
+                    <form method="POST" action="/troca_pagamento">
+                        <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
+                        <select name="pagamento" onchange="this.form.submit()">
+                            <option value="">Pagamento</option>
+                            <option value="0">Não pago</option>
+                            <option value="1">Pago</option>
+                        </select> 
+                    </form>
                     <td><?= $pedido['fonte'] ?></td>
                     <td><?= $pedido['fonte'] ?></td>
                     <td><?= $pedido['observacao'] ?></td>
