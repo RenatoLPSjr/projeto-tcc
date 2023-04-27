@@ -62,6 +62,19 @@ class PedidoController extends Action
 	}
 
 
+
+	public function novoEspecialista() 
+	{
+		$id = $_GET['id'];
+		$usuario = Container::getModel('Usuario');
+		$usuarios = $usuario->getById($id);
+
+		$this->view->usuarios = $usuarios;
+		$this->render('novo', 'layout2');
+	}
+	  
+
+
 }
 
 ?>
