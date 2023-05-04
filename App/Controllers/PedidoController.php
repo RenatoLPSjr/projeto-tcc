@@ -63,15 +63,37 @@ class PedidoController extends Action
 
 
 
-	public function novoEspecialista() 
-	{
-		$id = $_GET['id'];
-		$usuario = Container::getModel('Usuario');
-		$usuarios = $usuario->getById($id);
+		public function novoEspecialista() 
+		{
+				$id = $_GET['id'];
+				$pedido = Container::getModel('Pedidos');
+				$usuario = Container::getModel('Usuario');
 
-		$this->view->usuarios = $usuarios;
-		$this->render('novo', 'layout2');
-	}
+				$pedidos = $pedido->getPedidoById($id);
+				$usuarios = $usuario->getAll();
+
+				$this->view->pedidos = $pedidos;
+				$this->view->usuarios = $usuarios;
+				$this->render('novo_especialista', 'layout2');
+			
+		}
+
+
+		public function trocaEspecialista()
+		{
+
+			var_dump($_POST['id_usuario']);
+			var_dump($_POST['id']);
+
+
+    
+			$pedido = Container::getModel('Pedidos');
+			$pedido->__set('id_usuario', $_POST['id_usuario']);
+			$pedido->__set('id', $_POST['id']);
+
+			$pedido->trocarEspecialista();
+			header('location: /visualizar');
+		}
 	  
 
 

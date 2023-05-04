@@ -90,3 +90,10 @@ body{
 .roso{
     background-color: blue;
 }
+
+
+.container.meio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

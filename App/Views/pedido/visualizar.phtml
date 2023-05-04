@@ -34,8 +34,7 @@
                     <td>
                         <?php if( $pedido['status'] == 6){ ?>
                     
-                            <a href="/novo_especialista?id=<?= $pedido['id'] ?>"> <?= $pedido['status'] ?></a>
-                                
+                            <a href="novo_especialista?id=<?= $pedido['id'] ?>"> <?= $pedido['status'] ?>   
                             <?php } else { ?>
                                 <?= $pedido['status'] ?>
                         <?php } ?>

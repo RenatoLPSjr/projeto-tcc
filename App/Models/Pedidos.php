@@ -179,5 +179,36 @@
                 $stmt->execute();
             }
 
+            public function getPedidoById($id)
+            {
+                $query = "select * from pedidos where id = :id";
+                $stmt = $this->db->prepare($query);
+                $stmt->bindValue(":id", $id);   
+                $stmt->execute();
+                $pedido = $stmt->fetch(\PDO::FETCH_ASSOC);
+            
+                return $pedido;
+            }
+
+
+            public function trocarEspecialista()
+            {
+                $query = "
+                UPDATE 
+                    pedidos 
+                SET 
+                    id_usuario = :id_usuario,
+                    status = 0
+                WHERE 
+                    id = :id";
+                $stmt = $this->db->prepare($query);
+                $stmt->bindValue(":id_usuario", $this->__get('id_usuario')); 
+                $stmt->bindValue(":id", $this->__get('id'));   
+                $stmt->execute();
+                $pedido = $stmt->fetch(\PDO::FETCH_ASSOC);
+            
+                return $pedido;
+            }
+
 
     }?>

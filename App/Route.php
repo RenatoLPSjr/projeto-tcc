@@ -75,6 +75,14 @@ class Route extends Bootstrap {
 			'action' => 'novoEspecialista'
 		);
 
+		$routes['trocar_especialista'] = array(
+			'route' => '/trocar_especialista',
+			'controller' => 'PedidoController',
+			'action' => 'trocaEspecialista'
+		);
+
+
+
 		//rotas de especialista//
 		
 		////////////////////////
