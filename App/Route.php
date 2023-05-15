@@ -81,6 +81,12 @@ class Route extends Bootstrap {
 			'action' => 'trocaEspecialista'
 		);
 
+		$routes['pedido_visu_adm'] = array(
+			'route' => '/pedido_visu_adm',
+			'controller' => 'AdmController',
+			'action' => 'pedidoVisuAdm'
+		);
+
 
 
 		//rotas de especialista//
@@ -103,6 +109,13 @@ class Route extends Bootstrap {
 			'route' => '/esp/aceita_pedido',
 			'controller' => 'espController',
 			'action' => 'aceitaPedido'
+		);
+
+		
+		$routes['pedido_visu_esp'] = array(
+			'route' => '/esp/pedido_visu_esp',
+			'controller' => 'EspController',
+			'action' => 'pedidoVisuEsp'
 		);
 		
 		//rotas de autenticação//

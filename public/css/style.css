@@ -93,7 +93,5 @@ body{
 
 
 .container.meio {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-left: 80px;
 }

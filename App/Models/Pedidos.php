@@ -26,6 +26,7 @@
         private $observacao;
         private $arquivos;
         private $pagamento;
+        private $corpo;
 
         public function __get($atributo)
         {
@@ -42,10 +43,10 @@
         {
             $query = 'insert into pedidos
             (id, titulo, status, receita_bruta, fonte, id_usuario, oferta, paginas, disciplina, tipo, 
-            metodologia, prazo_real, prazo_entrega, prazo_garantia, tema, descricao, observacao, arquivos, pagamento)
+            metodologia, prazo_real, prazo_entrega, prazo_garantia, tema, descricao, observacao, arquivos, pagamento, corpo)
             values
             (:id, :titulo, :status, :receita_bruta, :fonte, :id_usuario, :oferta, :paginas, :disciplina, :tipo, 
-            :metodologia, :prazo_real, :prazo_entrega, :prazo_garantia, :tema, :descricao, :observacao, :arquivos, :pagamento)';
+            :metodologia, :prazo_real, :prazo_entrega, :prazo_garantia, :tema, :descricao, :observacao, :arquivos, :pagamento, :corpo)';
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':id', $this->__get('id'));
             $stmt->bindValue(':titulo', $this->__get('titulo'));
@@ -65,7 +66,8 @@
             $stmt->bindValue(':descricao', $this->__get('descricao'));
             $stmt->bindValue(':observacao', $this->__get('observacao'));
             $stmt->bindValue(':arquivos', $this->__get('arquivos'));
-            $stmt->bindValue(':arquivos', 0);
+            $stmt->bindValue(':pagamento', 0);
+            $stmt->bindValue(':corpo', $this->__get('corpo'));
 
             $stmt->execute();
 
@@ -77,6 +79,7 @@
             $query = "
             SELECT 
                 pedidos.id, 
+                pedidos.id_usuario,
                 pedidos.fonte, 
                 DATE_FORMAT(pedidos.prazo_garantia, '%d/%m/%y') AS prazo_garantia, 
                 DATE_FORMAT(pedidos.prazo_entrega, '%d/%m/%y') AS prazo_entrega, 
@@ -181,7 +184,23 @@
 
             public function getPedidoById($id)
             {
-                $query = "select * from pedidos where id = :id";
+                $query = "select 
+                DATE_FORMAT(prazo_garantia, '%d/%m/%y') AS prazo_garantia,
+                DATE_FORMAT(prazo_entrega, '%d/%m/%y') AS prazo_entrega, 
+                entregue,
+                status,
+                titulo,
+                oferta,
+                disciplina,
+                paginas,
+                fonte,
+                tipo,
+                metodologia,
+                observacao,
+                corpo,
+                id
+                 from 
+                pedidos where id = :id";
                 $stmt = $this->db->prepare($query);
                 $stmt->bindValue(":id", $id);   
                 $stmt->execute();

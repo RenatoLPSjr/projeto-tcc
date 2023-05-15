@@ -59,5 +59,19 @@ class EspController extends Action
         }
 
     }
+
+    
+		public function pedidoVisuEsp()
+		{
+    
+			$id = $_GET['id'];
+            
+			$pedido = Container::getModel('Pedidos');
+
+			$pedidos = $pedido->getPedidoById($id);
+
+			$this->view->pedidos = $pedidos;
+			$this->render('pedido_visu_esp', 'layout3');
+		}
 }
 ?>

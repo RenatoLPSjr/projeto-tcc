@@ -52,6 +52,7 @@ class PedidoController extends Action
         $pedido->__set('tema', $_POST['tema']);
         $pedido->__set('descricao', $_POST['descricao']);
         $pedido->__set('observacao', $_POST['observacao']);
+		$pedido->__set('corpo', $_POST['corpo']);
 
        $pedido->salvar();
 
@@ -94,6 +95,9 @@ class PedidoController extends Action
 			$pedido->trocarEspecialista();
 			header('location: /visualizar');
 		}
+
+
+	  
 	  
 
 

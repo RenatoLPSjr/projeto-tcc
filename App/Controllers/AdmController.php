@@ -82,6 +82,26 @@ class AdmController extends Action
 			}
 		}
 
+
+		
+		public function pedidoVisuAdm()
+		{
+    
+			$id = $_GET['id'];
+			$id_usuario = $_GET['id_usuario'];
+            
+			$pedido = Container::getModel('Pedidos');
+			$usuario = Container::getModel('Usuario');
+
+			$pedidos = $pedido->getPedidoById($id);
+			$usuarios = $usuario->getById($id_usuario);
+
+
+			$this->view->pedidos = $pedidos;
+			$this->view->usuarios = $usuarios;
+			$this->render('pedido_visu_adm', 'layout2');
+		}
+
 	
 }
 
