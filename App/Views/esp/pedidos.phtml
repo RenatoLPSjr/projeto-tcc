@@ -4,7 +4,6 @@
             <tr>
                 <th>Garantia</th>
                 <th>Entrega</th>
-                <th>Entregue</th>
                 <th>Estado</th>
                 <th >Nome dos Pedidos</th>
                 <th>Lucro</th>
@@ -20,7 +19,6 @@
                 <tr>
                     <td><?= $pedido['prazo_garantia'] ?></td>
                     <td><?= $pedido['prazo_entrega'] ?></td>
-                    <td class="entrega"><?= $pedido['entregue'] ?></td>
                     <td class="status" value="<?= $pedido['status'] ?>"><?= $pedido['status'] ?></td>
                     <td class="titulo"><?= $pedido['titulo'] ?></td>
                     <td><?= $pedido['oferta'] ?></td>
@@ -62,13 +60,26 @@
         for (var i = 0; i < cells.length; i++) {
             var cell = cells[i];
 
-        // verifica se o conteúdo da célula é igual a 1 ou 2
-            if (cell.innerHTML == '2') {
-                cell.classList.add('azul'); // adiciona classe "n"
-            } else if (cell.innerHTML == '3') {
-                cell.classList.add('s'); // adiciona classe "s"
-            }else if (cell.innerHTML == '4') {
-                cell.classList.add('vermelho'); // adiciona classe "s"
+          // verifica se o conteúdo da célula é igual a 1 ou 2
+            if (cell.innerHTML == '0') {
+                cell.innerHTML = 'Novo';
+                cell.classList.add('rosa'); 
+
+            } else if (cell.innerHTML == '1') {
+                cell.innerHTML = 'Aceito';
+                cell.classList.add('laranja'); 
+
+            }else if (cell.innerHTML == '2') {
+                cell.innerHTML = 'Entregue';
+                cell.classList.add('azul'); 
+
+            }else if(cell.innerHTML == '3') {
+                cell.innerHTML = 'Revisar';
+                cell.classList.add('vermelho'); 
+                
+            }else if(cell.innerHTML == '4') {
+                cell.innerHTML = 'Pago';
+                cell.classList.add('verde');
             }
         }
     }

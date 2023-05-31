@@ -87,7 +87,7 @@
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(":id", $id);   
             $stmt->execute();
-            $usuario = $stmt->fetch(\PDO::FETCH_OBJ);
+            $usuario = $stmt->fetchAll(\PDO::FETCH_ASSOC);  
         
             return $usuario;
         }

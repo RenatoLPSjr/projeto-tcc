@@ -152,6 +152,51 @@
     
         }
 
+        public function atualizaStatusFinalizado()
+        {
+            $query = "
+            UPDATE 
+                pedidos 
+            SET 
+                status = 2 
+            WHERE 
+                id = :id";
+                $stmt = $this->db->prepare($query);
+                $stmt->bindValue(':id', $this->__get('id'));
+                $stmt->execute();
+    
+        }
+
+        public function atualizaStatusRevisado()
+        {
+            $query = "
+            UPDATE 
+                pedidos 
+            SET 
+                status = 3 
+            WHERE 
+                id = :id";
+                $stmt = $this->db->prepare($query);
+                $stmt->bindValue(':id', $this->__get('id'));
+                $stmt->execute();
+    
+        }
+
+        public function pagarPedido()
+        {
+            $query = "
+            UPDATE 
+                pedidos 
+            SET 
+                status = 4
+            WHERE 
+                id = :id";
+                $stmt = $this->db->prepare($query);
+                $stmt->bindValue(':id', $this->__get('id'));
+                $stmt->execute();
+    
+        }
+
             public function retirarStatus()
             {
                 $query = "
@@ -227,6 +272,36 @@
                 $pedido = $stmt->fetch(\PDO::FETCH_ASSOC);
             
                 return $pedido;
+            }
+
+            public function pedidoRevisar()
+            {
+                $query = "
+                UPDATE 
+                    pedidos 
+                SET 
+                    status = 3
+                WHERE 
+                    id = :id";
+                    $stmt = $this->db->prepare($query);
+                    $stmt->bindValue(':id', $this->__get('id'));
+                    $stmt->execute();
+        
+            }
+
+            public function pedidoAceito()
+            {
+                $query = "
+                UPDATE 
+                    pedidos 
+                SET 
+                    status = 2
+                WHERE 
+                    id = :id";
+                    $stmt = $this->db->prepare($query);
+                    $stmt->bindValue(':id', $this->__get('id'));
+                    $stmt->execute();
+        
             }
 
 

@@ -76,7 +76,6 @@ class PedidoController extends Action
 				$this->view->pedidos = $pedidos;
 				$this->view->usuarios = $usuarios;
 				$this->render('novo_especialista', 'layout2');
-			
 		}
 
 

@@ -91,7 +91,14 @@ $pedido = $this->view->pedidos;
 
     <div class="row justify-content-between">
         <div class="col-12">
-        <p><?= $pedido['corpo'] ?></p>
+        <p><?php
+
+            $texto = $pedido['corpo'];
+            $texto_formatado = str_replace("\n", "@@newline@@", $texto);
+            $texto_exibicao = str_replace("@@newline@@", "<br>", $texto_formatado);
+            echo $texto_exibicao;
+            ?>
+        </p>
         </div> 
     </div>
 
@@ -105,11 +112,24 @@ $pedido = $this->view->pedidos;
                 <p>Aceita o serviço?</p>
                 <button type="submit" name="aceita" onclick="confirmar()" value="1">Sim</button>
                 <button type="submit" name="aceita" onclick="confirmar()" value="2">Não</button>
-                <a ><?= $pedido['id'] ?></a>
+                
             </form>
-    <?php }else if($valor_coluna == 2) {?>
-            --  
-    <?php } ?>
+    <?php }else if($valor_coluna == 1) { ?>
+        <form method="post" action="/esp/finaliza_pedido">
+                <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
+                <p>Artigo Finalizado?</p>
+                <button type="submit" name="aceita" onclick="confirmar()" value="1">Sim</button>
+                <button type="submit" name="aceita" onclick="confirmar()" value="2">Não</button>
+                
+            </form>
+    <?php }else if($valor_coluna == 2)  {?>
+    <form method="post" action="/esp/revisa_pedido">
+                <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
+                <p>Revisão Completa?</p>
+                <button type="submit" name="aceita" onclick="confirmar()" value="1">Sim</button>
+                <button type="submit" name="aceita" onclick="confirmar()" value="2">Não</button>
+            </form>
+    <?php }?>
 </div>
 
 

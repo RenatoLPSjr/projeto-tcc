@@ -41,8 +41,9 @@
                         <label for="id_usuario" class="form-label">Especialista</label>
                         <select name="id_usuario" id="id_usuario" class="form-select" aria-label="Default select example">
                         <?php foreach($this->view->usuarios as $indice => $usuarios){ ?>
-                        <option value="<?= $usuarios['id'] ?>"><?= $usuarios['nome'] ?></option>
+                         <option value="<?= $usuarios['id'] ?>"><?= $usuarios['nome'] ?></option>
                         <?php } ?>
+
                         </select>
                     </div>
                     <div class="col">

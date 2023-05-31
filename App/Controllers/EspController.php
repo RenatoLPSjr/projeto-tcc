@@ -60,6 +60,58 @@ class EspController extends Action
 
     }
 
+    public function finalizaPedido()
+    {
+        // Verifica se o formulário foi enviado
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Obtém o valor enviado pelo formulário
+            $servico_aceito = isset($_POST['aceita']) ? $_POST['aceita'] : 0;
+        
+            // Verifica se o valor é igual a 1
+            if ($servico_aceito == 1) {
+                
+                session_start();
+                $pedido = Container::getModel('Pedidos');
+                $pedido->__set('id', $_POST['id']);
+                $pedido->atualizaStatusFinalizado();
+
+                header('Location: /esp/pedidos');
+                exit;
+            }else if($servico_aceito == 2){
+
+                session_start();
+                header('Location: /esp/pedidos');
+                exit;
+            }
+        }
+    }
+
+    public function revisaPedido()
+    {
+        // Verifica se o formulário foi enviado
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Obtém o valor enviado pelo formulário
+            $servico_aceito = isset($_POST['aceita']) ? $_POST['aceita'] : 0;
+        
+            // Verifica se o valor é igual a 1
+            if ($servico_aceito == 1) {
+                
+                session_start();
+                $pedido = Container::getModel('Pedidos');
+                $pedido->__set('id', $_POST['id']);
+                $pedido->atualizaStatusRevisado();
+
+                header('Location: /esp/pedidos');
+                exit;
+            }else if($servico_aceito == 2){
+
+                session_start();
+                header('Location: /esp/pedidos');
+                exit;
+            }
+        }
+    }
+
     
 		public function pedidoVisuEsp()
 		{

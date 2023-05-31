@@ -69,14 +69,6 @@ body{
     background-color: rgba(238, 238, 238, 0.91);
 }
 
-.s {
-    background-color: green;
-}
-  
-.n {
-    background-color: yellow;
-}
-
 .vermelho{
     background-color: red;
 }
@@ -85,10 +77,22 @@ body{
     background-color: blue;
 }
 
+.verde{
+    background-color: rgb(98, 239, 133);
+}
+
 .titulo{ width: 35%; }
 
-.roso{
-    background-color: blue;
+.roxo{
+    background-color: rgb(145, 33, 167);
+}
+
+.laranja{
+    background-color: rgb(223, 111, 54);
+}
+
+.rosa{
+    background-color: rgb(255, 164, 241);
 }
 
 

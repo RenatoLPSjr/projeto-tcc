@@ -87,6 +87,18 @@ class Route extends Bootstrap {
 			'action' => 'pedidoVisuAdm'
 		);
 
+		$routes['pedido_pago'] = array(
+			'route' => '/pedido_pago',
+			'controller' => 'AdmController',
+			'action' => 'pedidoPago'
+		);
+
+		$routes['pedido_revisão'] = array(
+			'route' => '/pedido_revisao',
+			'controller' => 'AdmController',
+			'action' => 'pedidoRevisao'
+		);
+
 
 
 		//rotas de especialista//
@@ -109,6 +121,18 @@ class Route extends Bootstrap {
 			'route' => '/esp/aceita_pedido',
 			'controller' => 'espController',
 			'action' => 'aceitaPedido'
+		);
+
+		$routes['finaliza_pedido'] = array(
+			'route' => '/esp/finaliza_pedido',
+			'controller' => 'espController',
+			'action' => 'finalizaPedido'
+		);
+
+		$routes['revisa_pedido'] = array(
+			'route' => '/esp/revisa_pedido',
+			'controller' => 'espController',
+			'action' => 'revisaPedido'
 		);
 
 		
