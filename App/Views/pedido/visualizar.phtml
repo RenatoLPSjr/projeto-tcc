@@ -32,15 +32,13 @@
 
                     
                     <td class="status" data-value="<?= $pedido['status'] ?>">
-                        <?php if ($pedido['status'] == 6) { ?>
-                            <a href="novo_especialista?id=<?= $pedido['id'] ?>"><?= $pedido['status'] ?></a>
-                        <?php } else { ?>
+
                             <?= $pedido['status'] ?>
-                        <?php } ?>
+
                     </td>
 
                     <td class="numero" data-value="<?= $pedido['status'] ?>">
-                        <?php if ($pedido['status'] == 6) { ?>
+                        <?php if ($pedido['status'] == 7) { ?>
                             <a href="novo_especialista?id=<?= $pedido['id'] ?>"><?= $pedido['status'] ?></a>
                         <?php } else { ?>
                             <?= $pedido['status'] ?>
@@ -55,8 +53,12 @@
 
                     <td class="nome" data-value="<?= $pedido['usuario_nome'] ?>">
                         <?php if ($pedido['usuario_nome'] == "Nenhum") { ?>
+
                             <a href="novo_especialista?id=<?= $pedido['id'] ?>">Nenhum</a>
-                        <?php } else { ?>
+
+                        <?php }else if($pedido['usuario_nome'] == "Aguardando"){ ?>
+                            <a href="editar?id=<?= $pedido['id'] ?>">Aguardando</a>
+                        <?php }else { ?>
                             <?= $pedido['usuario_nome'] ?>
                         <?php } ?>
                     </td>
@@ -73,23 +75,6 @@
 
 <script>
 
-    function manipularEntrega(){
-        var cells = document.querySelectorAll('.entrega');
-
-        // percorre todas as células da tabela
-        for (var i = 0; i < cells.length; i++) {
-            var cell = cells[i];
-
-        // verifica se o conteúdo da célula é igual a 1 ou 2
-            if (cell.innerHTML == '1') {
-                cell.innerHTML = 'N'; // substitui por "N"
-                cell.classList.add('n'); // adiciona classe "n"
-            } else if (cell.innerHTML == '2') {
-                cell.innerHTML = 'S'; // substitui por "S"
-                cell.classList.add('s'); // adiciona classe "s"
-            }
-        }
-    }
 
     function manipularFonte(){
         var cells = document.querySelectorAll('.fonte');
@@ -127,47 +112,6 @@
         });
     }
 
-    function corStatus() {
-
-        var cells = document.querySelectorAll('.status');
-        for (var i = 0; i < cells.length; i++) {
-            var cell = cells[i];
-            var status = cell.getAttribute('data-value');
-            var nome = cell.parentNode.querySelector('.nome').getAttribute('data-value');
-
-            if(nome === 'Nenhum') {
-                if (status === '0'){
-                    cell.innerHTML = 'Nada';
-                }
-            } else if(status === '0') {
-                cell.innerHTML = 'Enviado';
-                cell.classList.add('rosa');
-
-            } else if(status === '1') {
-                cell.innerHTML = 'Fazendo';
-                cell.classList.add('laranja');
-
-            } else if(status === '2') {
-                cell.innerHTML = 'Garantia';
-                cell.classList.add('azul');
-            }
-
-            else if(status === '3') {
-                cell.innerHTML = 'Revisando';
-                cell.classList.add('vermelho');
-            }
-
-            else if(status === '4') {
-                cell.innerHTML = 'Pago';
-                cell.classList.add('verde');
-            }
-
-            else if(status === '6') {
-                cell.innerHTML = 'Retorno';
-                cell.classList.add('roxo');
-            }
-        }
-    }
 
     function numeroStatus() {
 
@@ -178,34 +122,76 @@
             var nome = cell.parentNode.querySelector('.nome').getAttribute('data-value');
 
             if(nome === 'Nenhum') {
-                if (numero === '0'){
+                if (numero === '1'){
                     cell.innerHTML = '0';
                 }
-            } else if(numero === '0') {
-                cell.innerHTML = '1';
-
-            } else if(numero === '1') {
-                cell.innerHTML = '2';
-
-            } else if(numero === '2') {
-                cell.innerHTML = '3';
-            }
-
-            else if(numero === '3') {
-                cell.innerHTML = '4';
-            }
-
-            else if(numero === '4') {
-                cell.innerHTML = '5';
             }
         }
 
     }
 
-    manipularEntrega();
+
+    function corStatus() {
+
+        var cells = document.querySelectorAll('.status');
+        for (var i = 0; i < cells.length; i++) {
+            var cell = cells[i];
+            var status = cell.getAttribute('data-value');
+            var nome = cell.parentNode.querySelector('.nome').getAttribute('data-value');
+
+
+            if(nome === 'Nenhum') {
+                if (status === '1'){
+                    cell.innerHTML = 'Nada';
+                }
+            }else if(nome === 'Aguardando') {
+                if (status === '1'){
+                    cell.innerHTML = 'Aguardando';
+                    cell.classList.add('marrom');
+                }
+            } else if(status === '1') {
+                cell.innerHTML = 'Enviado';
+                cell.classList.add('rosa');
+
+            } else if(status === '2') {
+                cell.innerHTML = 'Fazendo';
+                cell.classList.add('laranja');
+
+            } else if(status === '3') {
+                cell.innerHTML = 'Entregue';
+                cell.classList.add('azul-claro');
+
+            }else if(status === '4') {
+                cell.innerHTML = 'Garantia';
+                cell.classList.add('azul');
+            }
+
+            else if(status === '5') {
+                cell.innerHTML = 'Revisando';
+                cell.classList.add('vermelho');
+            }
+
+            else if(status === '6') {
+                cell.innerHTML = 'Pago';
+                cell.classList.add('verde');
+            }
+
+            else if(status === '7') {
+                cell.innerHTML = 'Retorno';
+                cell.classList.add('roxo');
+            }
+
+
+
+
+        }
+    }
+
+
+
     manipularFonte();
     valorLucro();
-    corStatus();
     numeroStatus();
+    corStatus();
 
 </script>

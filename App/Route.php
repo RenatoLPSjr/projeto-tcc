@@ -75,6 +75,12 @@ class Route extends Bootstrap {
 			'action' => 'novoEspecialista'
 		);
 
+		$routes['editar'] = array(
+			'route' => '/editar',
+			'controller' => 'PedidoController',
+			'action' => 'editar'
+		);
+
 		$routes['trocar_especialista'] = array(
 			'route' => '/trocar_especialista',
 			'controller' => 'PedidoController',
@@ -93,10 +99,16 @@ class Route extends Bootstrap {
 			'action' => 'pedidoPago'
 		);
 
-		$routes['pedido_revisão'] = array(
-			'route' => '/pedido_revisao',
+		$routes['pedido_entregue'] = array(
+			'route' => '/pedido_entregue',
 			'controller' => 'AdmController',
-			'action' => 'pedidoRevisao'
+			'action' => 'pedidoEntregue'
+		);
+
+		$routes['pedido_revisão_final'] = array(
+			'route' => '/pedido_revisao_final',
+			'controller' => 'AdmController',
+			'action' => 'pedidoRevisaoFinal'
 		);
 
 
@@ -180,16 +192,18 @@ class Route extends Bootstrap {
 		$routes['criar_pedido'] = array(
 			'route' => '/criar_pedido',
 			'controller' => 'PedidoController',
-			'action' => 'criar'
+			'action' => 'criarPedido'
 		);
 
-
-
-
+		$routes['atualizar_pedido'] = array(
+			'route' => '/atualizar_pedido',
+			'controller' => 'PedidoController',
+			'action' => 'atualizarPedido'
+		);
 
 		$this->setRoutes($routes);
 	}
-
+	
 }
 
 ?>

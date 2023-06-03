@@ -77,8 +77,16 @@ body{
     background-color: blue;
 }
 
+.azul-claro{
+    background-color: rgb(168, 168, 246);
+}
+
 .verde{
     background-color: rgb(98, 239, 133);
+}
+
+.marrom{
+    background-color: rgb(173, 92, 55);
 }
 
 .titulo{ width: 35%; }

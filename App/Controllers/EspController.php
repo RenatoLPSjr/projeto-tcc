@@ -34,7 +34,7 @@ class EspController extends Action
         // Verifica se o formulário foi enviado
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Obtém o valor enviado pelo formulário
-            $servico_aceito = isset($_POST['aceita']) ? $_POST['aceita'] : 0;
+            $servico_aceito = isset($_POST['aceita']) ? $_POST['aceita'] : 1;
         
             // Verifica se o valor é igual a 1
             if ($servico_aceito == 1) {
@@ -46,7 +46,7 @@ class EspController extends Action
 
                 header('Location: /esp/pedidos');
                 exit;
-            }else if($servico_aceito == 2){
+            }else{
 
                 session_start();
                 $pedido = Container::getModel('Pedidos');
@@ -73,11 +73,11 @@ class EspController extends Action
                 session_start();
                 $pedido = Container::getModel('Pedidos');
                 $pedido->__set('id', $_POST['id']);
-                $pedido->atualizaStatusFinalizado();
+                $pedido->pedidoEntregue();
 
                 header('Location: /esp/pedidos');
                 exit;
-            }else if($servico_aceito == 2){
+            }else{
 
                 session_start();
                 header('Location: /esp/pedidos');

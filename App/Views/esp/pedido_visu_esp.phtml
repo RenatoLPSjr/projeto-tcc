@@ -105,7 +105,7 @@ $pedido = $this->view->pedidos;
     <?php 
         $valor_coluna = $pedido['status'];
 
-        if ($valor_coluna == 0 ) { ?>
+        if ($valor_coluna == 1 ) { ?>
             
             <form method="post" action="/esp/aceita_pedido">
                 <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
@@ -114,7 +114,7 @@ $pedido = $this->view->pedidos;
                 <button type="submit" name="aceita" onclick="confirmar()" value="2">Não</button>
                 
             </form>
-    <?php }else if($valor_coluna == 1) { ?>
+    <?php }else if($valor_coluna == 2) { ?>
         <form method="post" action="/esp/finaliza_pedido">
                 <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
                 <p>Artigo Finalizado?</p>
@@ -122,7 +122,7 @@ $pedido = $this->view->pedidos;
                 <button type="submit" name="aceita" onclick="confirmar()" value="2">Não</button>
                 
             </form>
-    <?php }else if($valor_coluna == 2)  {?>
+    <?php }else if($valor_coluna == 20)  {?>
     <form method="post" action="/esp/revisa_pedido">
                 <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
                 <p>Revisão Completa?</p>
@@ -136,8 +136,7 @@ $pedido = $this->view->pedidos;
 <script>
     function confirmar() {
             if (confirm("tem certeza?")) {
-                // Se o usuário confirmar, realizar a ação desejada
-                // Exemplo: enviar uma requisição AJAX para o servidor para apagar um registro
+
             }
         }
 </script>

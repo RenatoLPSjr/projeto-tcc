@@ -11,6 +11,10 @@ class AdmController extends Action
 {
 	public function home() 
 	{
+		$usuario = Container::getModel('Usuario');
+		$usuarios = $usuario->getAll();
+
+		$this->view->usuarios = $usuarios;
 		$this->render('home','layout2');
 	}
 
@@ -115,20 +119,24 @@ class AdmController extends Action
 					session_start();
 					$pedido = Container::getModel('Pedidos');
 					$pedido->__set('id', $_POST['id']);
-					$pedido->pagarPedido();
+					$pedido->pedidoPago(); 
 	
 					header('Location: /visualizar');
 					exit;
-				}else if($servico_aceito == 2){
+				}else{
 	
 					session_start();
+					$pedido = Container::getModel('Pedidos');
+					$pedido->__set('id', $_POST['id']);
+					$pedido->pedidoRevisar();
+	
 					header('Location: /visualizar');
 					exit;
 				}
 			}
 		}
 
-		public function pedidoRevisao()
+		public function pedidoEntregue()
 		{
 			// Verifica se o formulário foi enviado
 			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -145,18 +153,59 @@ class AdmController extends Action
 	
 					header('Location: /visualizar');
 					exit;
-				}else if($servico_aceito == 2){
+				}else{
 	
 					session_start();
 					$pedido = Container::getModel('Pedidos');
 					$pedido->__set('id', $_POST['id']);
-					$pedido->pedidoAceito();
+					$pedido->pedidoGarantia();
 
 					header('Location: /visualizar');
 					exit;
 				}
 			}
 		}
+
+
+		public function pedidoRevisaoFinal()
+		{
+			// Verifica se o formulário foi enviado
+			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				// Obtém o valor enviado pelo formulário
+				$servico_aceito = isset($_POST['aceita']) ? $_POST['aceita'] : 0;
+			
+				// Verifica se o valor é igual a 1
+				if ($servico_aceito == 1) {
+					
+					session_start();
+					$pedido = Container::getModel('Pedidos');
+					$pedido->__set('id', $_POST['id']);
+					$pedido->pedidoEntregue();
+	
+					header('Location: /visualizar');
+					exit;
+				}else if($servico_aceito == 2){
+	
+					session_start();
+					$pedido = Container::getModel('Pedidos');
+					$pedido->__set('id', $_POST['id']);
+					$pedido->pedidoGarantia();
+
+					header('Location: /visualizar');
+					exit;
+				}else if($servico_aceito == 3){
+	
+					session_start();
+					$pedido = Container::getModel('Pedidos');
+					$pedido->__set('id', $_POST['id']);
+					$pedido->pedidoPago();
+
+					header('Location: /visualizar');
+					exit;
+				}
+			}
+		}
+
 
 	
 }

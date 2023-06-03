@@ -116,27 +116,38 @@ $pedido = $this->view->pedidos;
     <?php 
         $valor_coluna = $pedido['status'];
 
-        if ($valor_coluna == 2 ) { ?>
+        if ($valor_coluna == 4 ) { ?>
             
             <form method="post" action="/pedido_pago">
                 <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
-                <p>Pagar pelo trabalho?</p>
-                <button type="submit" name="aceita" onclick="confirmar()" value="1">Sim</button>
-                <button type="submit" name="aceita" onclick="confirmar()" value="2">Não</button>
+                <p>Qual o status do trabalho?</p>
+                <button type="submit" name="aceita" onclick="confirmar()" value="1">Pagar</button>
+                <button type="submit" name="aceita" onclick="confirmar()" value="2">Revisão</button>
                 
             </form>
 
-        <?php }else if ($valor_coluna == 1 ) { ?>
+        <?php }else if ($valor_coluna == 3) { ?>
 
-            <form method="post" action="/pedido_revisao">
+            <form method="post" action="/pedido_entregue">
                 <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
-                <p>Trabalho precisa de revisão?</p>
-                <button type="submit" name="aceita" onclick="confirmar()" value="1">Sim</button>
-                <button type="submit" name="aceita" onclick="confirmar()" value="2">Não</button>
+                <p>Qual status do trabalho?</p>
+                <button type="submit" name="aceita" onclick="confirmar()" value="2">Garantia</button>
+                <button type="submit" name="aceita" onclick="confirmar()" value="1">Revisão</button>
                 
             </form>
 
-        <?php } ?>
+        <?php }else if ($valor_coluna == 5 ) { ?>
+
+            <form method="post" action="/pedido_revisao_final">
+                <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
+                <p>Qual status do trabalho?</p>
+                <button type="submit" name="aceita" onclick="confirmar()" value="1">Fazendo</button>
+                <button type="submit" name="aceita" onclick="confirmar()" value="2">Garantia</button>
+                <button type="submit" name="aceita" onclick="confirmar()" value="3">Pago</button>
+        
+            </form>
+
+        <?php }?>
 </div>  
 
 

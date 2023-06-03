@@ -74,6 +74,60 @@
             return $this;
         }
 
+        public function atualizar()
+        {
+            $query = 'UPDATE pedidos SET
+
+                    titulo = :titulo,
+                    status = :status,
+                    receita_bruta = :receita_bruta,
+                    fonte = :fonte,
+                    id_usuario = :id_usuario,
+                    oferta = :oferta,
+                    paginas = :paginas,
+                    disciplina = :disciplina,
+                    tipo = :tipo,
+                    metodologia = :metodologia,
+                    prazo_real = :prazo_real,
+                    prazo_entrega = :prazo_entrega,
+                    prazo_garantia = :prazo_garantia,
+                    tema = :tema,
+                    descricao = :descricao,
+                    observacao = :observacao,
+                    arquivos = :arquivos,
+                    pagamento = :pagamento,
+                    corpo = :corpo
+                    
+                    WHERE id = :id';
+        
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->bindValue(':titulo', $this->__get('titulo'));
+            $stmt->bindValue(':status', $this->__get('status'));
+            $stmt->bindValue(':receita_bruta', $this->__get('receita_bruta'));
+            $stmt->bindValue(':fonte', $this->__get('fonte'));
+            $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+            $stmt->bindValue(':oferta', $this->__get('oferta'));
+            $stmt->bindValue(':paginas', $this->__get('paginas'));
+            $stmt->bindValue(':disciplina', $this->__get('disciplina'));
+            $stmt->bindValue(':tipo', $this->__get('tipo'));
+            $stmt->bindValue(':metodologia', $this->__get('metodologia'));
+            $stmt->bindValue(':prazo_real', $this->__get('prazo_real'));
+            $stmt->bindValue(':prazo_entrega', $this->__get('prazo_entrega'));
+            $stmt->bindValue(':prazo_garantia', $this->__get('prazo_garantia'));
+            $stmt->bindValue(':tema', $this->__get('tema'));
+            $stmt->bindValue(':descricao', $this->__get('descricao'));
+            $stmt->bindValue(':observacao', $this->__get('observacao'));
+            $stmt->bindValue(':arquivos', $this->__get('arquivos'));
+            $stmt->bindValue(':pagamento', $this->__get('pagamento'));
+            $stmt->bindValue(':corpo', $this->__get('corpo'));
+        
+            $stmt->execute();
+        
+            return $this;
+        }
+        
+
         public function getAll()
         {
             $query = "
@@ -127,7 +181,7 @@
             WHERE
                 id_usuario = :id_usuario
             AND 
-                status != 6
+                status != 7
             ";
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
@@ -143,21 +197,6 @@
             UPDATE 
                 pedidos 
             SET 
-                status = 1 
-            WHERE 
-                id = :id";
-                $stmt = $this->db->prepare($query);
-                $stmt->bindValue(':id', $this->__get('id'));
-                $stmt->execute();
-    
-        }
-
-        public function atualizaStatusFinalizado()
-        {
-            $query = "
-            UPDATE 
-                pedidos 
-            SET 
                 status = 2 
             WHERE 
                 id = :id";
@@ -166,6 +205,8 @@
                 $stmt->execute();
     
         }
+
+
 
         public function atualizaStatusRevisado()
         {
@@ -182,28 +223,13 @@
     
         }
 
-        public function pagarPedido()
-        {
-            $query = "
-            UPDATE 
-                pedidos 
-            SET 
-                status = 4
-            WHERE 
-                id = :id";
-                $stmt = $this->db->prepare($query);
-                $stmt->bindValue(':id', $this->__get('id'));
-                $stmt->execute();
-    
-        }
-
             public function retirarStatus()
             {
                 $query = "
                 UPDATE 
                     pedidos 
                 SET 
-                    status = 6
+                    status = 7
                 WHERE 
                     id = :id";
                     $stmt = $this->db->prepare($query);
@@ -230,8 +256,10 @@
             public function getPedidoById($id)
             {
                 $query = "select 
+                DATE_FORMAT(prazo_real, '%d/%m/%y') AS prazo_real,
                 DATE_FORMAT(prazo_garantia, '%d/%m/%y') AS prazo_garantia,
-                DATE_FORMAT(prazo_entrega, '%d/%m/%y') AS prazo_entrega, 
+                DATE_FORMAT(prazo_entrega, '%d/%m/%y') AS prazo_entrega,
+                receita_bruta,
                 entregue,
                 status,
                 titulo,
@@ -262,7 +290,7 @@
                     pedidos 
                 SET 
                     id_usuario = :id_usuario,
-                    status = 0
+                    status = 1
                 WHERE 
                     id = :id";
                 $stmt = $this->db->prepare($query);
@@ -274,13 +302,13 @@
                 return $pedido;
             }
 
-            public function pedidoRevisar()
+            public function pedidoEntregue()
             {
                 $query = "
                 UPDATE 
                     pedidos 
                 SET 
-                    status = 3
+                    status = 3 
                 WHERE 
                     id = :id";
                     $stmt = $this->db->prepare($query);
@@ -289,13 +317,43 @@
         
             }
 
-            public function pedidoAceito()
+            public function pedidoRevisar()
             {
                 $query = "
                 UPDATE 
                     pedidos 
                 SET 
-                    status = 2
+                    status = 5
+                WHERE 
+                    id = :id";
+                    $stmt = $this->db->prepare($query);
+                    $stmt->bindValue(':id', $this->__get('id'));
+                    $stmt->execute();
+        
+            }
+
+            public function pedidoGarantia()
+            {
+                $query = "
+                UPDATE 
+                    pedidos 
+                SET 
+                    status = 4
+                WHERE 
+                    id = :id";
+                    $stmt = $this->db->prepare($query);
+                    $stmt->bindValue(':id', $this->__get('id'));
+                    $stmt->execute();
+        
+            }
+
+            public function pedidoPago()
+            {
+                $query = "
+                UPDATE 
+                    pedidos 
+                SET 
+                    status = 6
                 WHERE 
                     id = :id";
                     $stmt = $this->db->prepare($query);

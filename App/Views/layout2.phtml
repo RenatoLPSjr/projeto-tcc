@@ -30,16 +30,9 @@ if (!isset($_SESSION))
 ?>
 	<nav class="navbar navbar-expand-lg bg-dark-subtle shadow" style="height:60px">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="/adm/home">SUPER TCC	</a>
+		<a class="navbar-brand" href="/adm/home">SUPER TCC</a>
 		<div class="collapse navbar-collapse">
-			<div class="navbar-nav">
-				<a class="nav-link" href="/esp/home">Home</a>
 
-				<a class="nav-link" href="#">Mensagens</a>
-
-				<a class="nav-link" href="#">Meu Perfil</a>
-			</div>
-		</div>
 		<div class="collapse navbar-collapse justify-content-end">	
 			<div class="navbar-nav">
 				<a class="nav-link" href="/configurar"><img style="width:30px" src="/img/user.png">&nbsp;<?php echo $_SESSION['nome'] ?></a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -54,7 +47,7 @@ if (!isset($_SESSION))
 
 		</div>
 		<ul class="form-lateral">
-			<li class="lista principal">Home</li>
+			<li class="lista principal"><a class="link" href="/adm/home">Home</a></li>
 			<li class="lista principal"><a class="link" href="/visualizar">Pedidos</a></li>
 			<li class="lista principal">Mensagens</li>
 			<li class="lista principal"><a class="link" href="/criacao">Add pedido</a></li>

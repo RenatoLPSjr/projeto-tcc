@@ -36,23 +36,6 @@
 
 <script>
 
-    function manipularEntrega(){
-        var cells = document.querySelectorAll('.entrega');
-
-        // percorre todas as células da tabela
-        for (var i = 0; i < cells.length; i++) {
-            var cell = cells[i];
-
-        // verifica se o conteúdo da célula é igual a 1 ou 2
-            if (cell.innerHTML == '1') {
-                cell.innerHTML = 'N'; // substitui por "N"
-                cell.classList.add('n'); // adiciona classe "n"
-            } else if (cell.innerHTML == '2') {
-                cell.innerHTML = 'S'; // substitui por "S"
-                cell.classList.add('s'); // adiciona classe "s"
-            }
-        }
-    }
 
     function corStatus(){
         var cells = document.querySelectorAll('.status');
@@ -61,23 +44,27 @@
             var cell = cells[i];
 
           // verifica se o conteúdo da célula é igual a 1 ou 2
-            if (cell.innerHTML == '0') {
+            if (cell.innerHTML == '1') {
                 cell.innerHTML = 'Novo';
                 cell.classList.add('rosa'); 
 
-            } else if (cell.innerHTML == '1') {
-                cell.innerHTML = 'Aceito';
+            } else if (cell.innerHTML == '2') {
+                cell.innerHTML = 'Fazendo';
                 cell.classList.add('laranja'); 
 
-            }else if (cell.innerHTML == '2') {
+            }else if (cell.innerHTML == '3') {
                 cell.innerHTML = 'Entregue';
-                cell.classList.add('azul'); 
+                cell.classList.add('azul-claro'); 
 
-            }else if(cell.innerHTML == '3') {
-                cell.innerHTML = 'Revisar';
-                cell.classList.add('vermelho'); 
-                
             }else if(cell.innerHTML == '4') {
+                cell.innerHTML = 'Garantia';
+                cell.classList.add('azul'); 
+                
+            }else if(cell.innerHTML == '5') {
+                cell.innerHTML = 'Revisar';
+                cell.classList.add('vermelho');
+
+            }else if(cell.innerHTML == '6') {
                 cell.innerHTML = 'Pago';
                 cell.classList.add('verde');
             }
@@ -89,7 +76,7 @@
     
 
 
-    manipularEntrega()
+
     corStatus()
 
 

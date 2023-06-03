@@ -1,1 +1,33 @@
-<h1>teste</h1>
+<div class="container mt-3">
+    <table class="tabelas">
+        <tbody>
+            <?php
+            $usuarios = $this->view->usuarios;
+            $totalUsuarios = count($usuarios);
+            $maxColumns = 4; // Número máximo de colunas na tabela
+
+            for ($i = 0; $i < $totalUsuarios; $i += $maxColumns) {
+                echo '<tr>';
+
+                for ($j = 0; $j < $maxColumns; $j++) {
+                    $index = $i + $j;
+
+                    if ($index >= $totalUsuarios) {
+                        break;
+                    }
+
+                    $usuarios = $usuarios[$index];
+                    ?>
+                    <td><?= $usuarios['id'] ?></td>
+                    <td><?= $usuarios['nome'] ?></td>
+
+                    <!-- Resto das colunas... -->
+                    <?php
+                }
+
+                echo '</tr>';
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
