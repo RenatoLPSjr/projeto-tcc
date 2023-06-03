@@ -1,33 +1,126 @@
-<div class="container mt-3">
-    <table class="tabelas">
-        <tbody>
-            <?php
-            $usuarios = $this->view->usuarios;
-            $totalUsuarios = count($usuarios);
-            $maxColumns = 4; // Número máximo de colunas na tabela
+<div class="container mt-3 d-flex justify-content-around">
+    <table>
+        <tr>
+            <th></th>
+            <th>Total</th>
+            <th>Parceria Studby</th>
+            <th>Parceria Pessoal</th>   
+        </tr>
+        <tr>
+            <th>Total Bruto</th>
+            <?php $this->view->usuarios  ?>
+                <th>R$ <?= $this->view->usuarios[0]['soma_total_receita_bruta'] ?>,00</th>
+                <th>R$ <?= $this->view->usuarios[0]['soma_receita_por_fonte_1'] ?>,00</th>
+                <th>R$ <?= $this->view->usuarios[0]['soma_receita_por_fonte_2'] ?>,00</th>
 
-            for ($i = 0; $i < $totalUsuarios; $i += $maxColumns) {
-                echo '<tr>';
-
-                for ($j = 0; $j < $maxColumns; $j++) {
-                    $index = $i + $j;
-
-                    if ($index >= $totalUsuarios) {
-                        break;
-                    }
-
-                    $usuarios = $usuarios[$index];
-                    ?>
-                    <td><?= $usuarios['id'] ?></td>
-                    <td><?= $usuarios['nome'] ?></td>
-
-                    <!-- Resto das colunas... -->
-                    <?php
-                }
-
-                echo '</tr>';
-            }
-            ?>
-        </tbody>
+        <tr>
+            <th>Total Investido</th>
+            <?php $this->view->usuarios  ?>
+                <th>R$ <?= $this->view->usuarios[0]['soma_total_investido'] ?>,00</th>
+                <th>R$ <?= $this->view->usuarios[0]['soma_oferta_1'] ?>,00</th>
+                <th>R$ <?= $this->view->usuarios[0]['soma_oferta_2'] ?>,00</th>
+        <tr>
+        <tr>
+            <th>Total Liquido</th>
+            <?php $this->view->usuarios  ?>
+                <th>R$ <?= $this->view->usuarios[0]['diferenca_total'] ?>,00</th>
+                <th>R$ <?= $this->view->usuarios[0]['total_1'] ?>,00</th>
+                <th>R$ <?= $this->view->usuarios[0]['total_2'] ?>,00</th>
+        <tr>
     </table>
+
+    <table>
+        <tr>
+            <th>Clientes ativos</th>
+            <th><?= $this->view->usuarios[0]['status_ativos'] ?></th>  
+        </tr>
+        <tr>
+            <th>Enviado</th>
+            <th><?= $this->view->usuarios[0]['status_enviado'] ?></th> 
+        </tr>
+        <tr>
+            <th>Fazendo</th>
+            <th><?= $this->view->usuarios[0]['status_fazendo'] ?></th> 
+        </tr>
+        <tr>
+            <th>Entregue</th>
+            <th><?= $this->view->usuarios[0]['status_entregue'] ?></th> 
+        </tr>
+        <tr>
+            <th>Garantia</th>
+            <th><?= $this->view->usuarios[0]['status_garantia'] ?></th> 
+        </tr>
+        <tr>
+            <th>Revisão</th>
+            <th><?= $this->view->usuarios[0]['status_revisão'] ?></th> 
+        </tr>
+        <tr>
+            <th>Total</th>
+            <th><?= $this->view->usuarios[0]['status_todos'] ?></th> 
+        </tr>
+    </table>
+
+
+
+</div>
+
+<div class="container mt-4 float-right">
+
+<table class="mt-4 ">
+    <tr>
+        <th></th>
+        <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+            <th><?= $usuario['nome'] ?></th>
+        <?php } ?>
+    <tr>
+    <tr>
+        <th>Receita Bruta</th>
+        <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+            <th>R$ <?= $usuario['total_receita_bruta'] ?>,00</th>
+        <?php } ?>
+    <tr>
+    <tr>
+        <th>Total Investido</th>
+        <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+            <th>R$ <?= $usuario['total_investido'] ?>,00</th>
+        <?php } ?>
+    <tr>
+    <tr>
+        <th>Total Liquido</th>
+        <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+            <th>R$ <?= $usuario['diferenca'] ?>,00</th>
+        <?php } ?>
+    <tr>
+    <tr>
+        <th>Pedido(1)</th>
+        <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+            <th><?= $usuario['status_1'] ?></th>
+        <?php } ?>
+    <tr>
+    <th>Fazendo(2)</th>
+        <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+            <th><?= $usuario['status_2'] ?></th>
+        <?php } ?>
+    <tr>
+    <th>Entregue(3)</th>
+        <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+            <th><?= $usuario['status_3'] ?></th>
+        <?php } ?>
+    <tr>
+    <th>Garantia(4)</th>
+        <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+            <th><?= $usuario['status_4'] ?></th>
+        <?php } ?>
+    <tr>
+    <th>Revisão(5)</th>
+        <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+            <th><?= $usuario['status_5'] ?></th>
+        <?php } ?>
+    <tr>
+    <th>Concluido(6)</th>
+        <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+            <th><?= $usuario['status_6'] ?></th>
+        <?php } ?>
+    <tr>
+</table>
 </div>
