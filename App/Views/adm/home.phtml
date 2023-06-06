@@ -1,3 +1,40 @@
+<!-- Incluir a biblioteca do Google Charts -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+<!-- Incluir o código JavaScript -->
+<script type="text/javascript">
+  // Função para desenhar o gráfico
+  function drawChart() {
+    // Dados para o gráfico
+    var data = google.visualization.arrayToDataTable([
+      ['Mês', 'Valor Bruto', 'Valor Ivestido', 'Valor Liquido'],
+      <?php foreach($this->view->graficos as $grafico_arr => $grafico) { ?>
+        ['<?= $grafico['data_mes'] ?>',  <?= $grafico['soma_total_receita_bruta'] ?>, <?= $grafico['soma_total_investido'] ?>, <?= $grafico['total_liquido'] ?>],
+      <?php } ?>
+    ]);
+
+    // Opções do gráfico
+    var options = {
+      title: 'Valores Mensais',
+      curveType: 'function',
+      legend: { position: 'bottom' },
+    };
+
+    // Criar o gráfico
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    // Desenhar o gráfico
+    chart.draw(data, options);
+  }
+
+  // Carregar a biblioteca do Google Charts
+  google.charts.load('current', {'packages':['corechart']});
+
+  // Chamar a função drawChart após a biblioteca ser carregada
+  google.charts.setOnLoadCallback(drawChart);
+</script>
+
 <div class="container mt-3 d-flex justify-content-around">
     <table>
         <tr>
@@ -124,3 +161,7 @@
     <tr>
 </table>
 </div>
+
+<!-- Div para o gráfico -->
+<div id="curve_chart" style="width: 1200px; height: 300px"></div>
+

@@ -169,6 +169,26 @@
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);    
         }
 
+        public function getHomeGrafico()
+        {
+            $query = "
+            SELECT DISTINCT MONTH(prazo_entrega) AS data_mes,
+                SUM(receita_bruta) AS soma_total_receita_bruta,
+                SUM(oferta) AS soma_total_investido,
+                (SUM(receita_bruta) - SUM(oferta)) as total_liquido 
+            FROM pedidos
+            GROUP BY data_mes
+            ORDER BY data_mes ASC;
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        }
+
+
         
         //Função criada para escolher apenas os funcionarios do tipo 2 assim o adm não é validado e não aparece na lista 
         //para exclusão

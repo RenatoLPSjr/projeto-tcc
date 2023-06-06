@@ -13,8 +13,10 @@ class AdmController extends Action
 	{
 		$usuario = Container::getModel('Usuario');
 		$usuarios = $usuario->getHome();
+		$graficos = $usuario->getHomeGrafico();
 
 		$this->view->usuarios = $usuarios;
+		$this->view->graficos = $graficos;
 		$this->render('home','layout2');
 	}
 
