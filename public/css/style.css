@@ -4,8 +4,19 @@ body{
 }
 
 .foto{
-    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 10px;
+    height: 120px;
+    top: 20px;
 }
+
+.centered-image {
+    border-radius: 50%; 
+    width: 150px;
+  }
 
 .lista-lateral{
     width: 170px;
@@ -22,6 +33,7 @@ body{
     position: absolute;
     flex-direction: column;
     left: -30px;
+    top: 170px;
 }
 
 .lista{

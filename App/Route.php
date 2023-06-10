@@ -27,7 +27,8 @@ class Route extends Bootstrap {
 			'route' => '/registrar',
 			'controller' => 'indexController',
 			'action' => 'registrar'
-		);
+		);	
+
 
 		//rotas de adm//
 		
@@ -123,10 +124,29 @@ class Route extends Bootstrap {
 			'action' => 'home'
 		);
 
+		
+		$routes['uploadImagemEsp'] = array(
+			'route' => '/uploadImagemEsp',
+			'controller' => 'EspController',
+			'action' => 'uploadImagem'
+		);
+
+		$routes['configurar'] = array(
+			'route' => '/configurar-esp',
+			'controller' => 'EspController',
+			'action' => 'configurar'
+		);
+
 		$routes['pedidos-esp'] = array(
 			'route' => '/esp/pedidos',
 			'controller' => 'espController',
 			'action' => 'pedidos'
+		);
+
+		$routes['pedidos-esp'] = array(
+			'route' => '/esp/calendario',
+			'controller' => 'espController',
+			'action' => 'calendario'
 		);
 
 		$routes['aceita_pedido'] = array(

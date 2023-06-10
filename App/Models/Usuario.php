@@ -15,6 +15,8 @@
         private $telefone;
         private $pix;
         private $status;
+        private $path_imagem;
+        private $nome_imagem;
 
         public function __get($atributo)
         {
@@ -117,7 +119,7 @@
         public function getAll()
         {
             $query = "
-                select id, nome, email, especialidade from usuarios
+                select id, nome, email, path_imagem, nome_imagem, especialidade from usuarios
             ";
             $stmt = $this->db->prepare($query);
             $stmt->execute();
@@ -237,6 +239,20 @@
                 return 'Senha ok';
             }
             
+        }
+
+        public function uploadImagem()
+        {
+            $query = '
+                UPDATE usuarios SET path_imagem =:path_imagem WHERE id = :id
+            ';
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':path_imagem', $this->__get('path_imagem'));
+            $stmt->bindValue(':id', $this->__get('id'));
+            $stmt->execute();
+
+            return $this;
         }
 
     }

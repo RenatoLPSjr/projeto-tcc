@@ -21,45 +21,22 @@ if (!isset($_SESSION))
         header('Location: /');  
     }
 }
-
-
 ?>
 	<nav class="navbar navbar-expand-lg bg-dark-subtle shadow" style="height:60px">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="/adm/home">SUPER TCC	</a>
-		<div class="collapse navbar-collapse">
-			<div class="navbar-nav">
-				<a class="nav-link" href="/esp/home">Home</a>
-
-				<a class="nav-link" href="#">Mensagens</a>
-
-				<a class="nav-link" href="#">Meu Perfil</a>
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/esp/home">SUPER TCC	</a>
+			<div class="collapse navbar-collapse justify-content-end">	
+				<div class="navbar-nav">
+					<a class="nav-link" href="/configurar-esp"><img style="width:30px" src="/img/user.png">&nbsp;<?php echo $_SESSION['nome'] ?></a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a type="button" class="button" href="/sair">Sair</a>
+				</div>
 			</div>
 		</div>
-		<div class="collapse navbar-collapse justify-content-end">	
-			<div class="navbar-nav">
-				<a class="nav-link" href="/configurar"><img style="width:30px" src="/img/user.png">&nbsp;<?php echo $_SESSION['nome'] ?></a>&nbsp;&nbsp;&nbsp;&nbsp;
-				<a type="button" class="button" href="/sair">Sair</a>
-			</div>
-		</div>
-	</div>
 	</nav>
 
-	<div class="lista-lateral">
-		<div class="foto">
 
-		</div>
-		<ul class="form-lateral">
-			<li class="lista principal">Home</li>
-			<li hr class="lista principal"><a class="link" href="/esp/pedidos">Pedidos</a></li>
-			<li class="lista principal">Mensagens</li>
-			<li class="lista principal">Calendario</li>
-		</ul>
-	</div>
-
-	<div style="position:absolute;left: 170px">
 	<?= $this->content() ?>
-	</div>
+
 
 
 
