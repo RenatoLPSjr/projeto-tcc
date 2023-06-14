@@ -12,8 +12,20 @@ class EspController extends Action
 
     public function home() 
     {
+        session_start();
+        $usuario = Container::getModel('Usuario');
+        $id = $_SESSION['id'];
+		$usuario = $usuario->getById($id);
+
+        $this->view->usuario = $usuario;
 
         $this->render('home','layout3');
+    }
+
+    public function calendario() 
+    {
+
+        $this->render('calendario','layout3');
     }
 
     public function configurar()
@@ -24,34 +36,40 @@ class EspController extends Action
 		$usuario = $usuario->getById($id);
 
         $this->view->usuario = $usuario;
+
 		$this->render('configurar','layout3');
+	}
+
+    public function lateral()
+	{
+        session_start();
+        $usuario = Container::getModel('Usuario');
+        $id = $_SESSION['id'];
+		$usuario = $usuario->getById($id);
+
+        $this->view->usuario = $usuario;
+		$this->render('lateral','layout3');
 	}
 
     public function pedidos() 
     {   
         session_start();
         $pedido = Container::getModel('Pedidos');
+        $usuario = Container::getModel('Usuario');
+        $id = $_SESSION['id'];
+        $usuario = $usuario->getById($id);
+
         $pedido->__set('id_usuario', $_SESSION['id']);
 		$pedidos = $pedido->getById();
+		
 
-
+        $this->view->usuario = $usuario;
         $this->view->pedidos = $pedidos;
+
 
         $this->render('pedidos','layout3');
     }
 
-    public function calendario() 
-    {   
-        session_start();
-        $pedido = Container::getModel('Pedidos');
-        $pedido->__set('id_usuario', $_SESSION['id']);
-		$pedidos = $pedido->getById();
-
-
-        $this->view->pedidos = $pedidos;
-
-        $this->render('calendario','layout3');
-    }
 
     public function aceitaPedido()
     {
@@ -181,7 +199,7 @@ class EspController extends Action
 
                         $usuario->uploadImagem();
               
-                        header('Location: /configurar-esp');
+                        $this->render('configurar','layout3');
                     }else
                         echo "<p>Falha ao enviar arquivo</p>";
 

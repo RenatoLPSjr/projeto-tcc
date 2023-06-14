@@ -119,7 +119,7 @@ class Route extends Bootstrap {
 		////////////////////////
 
 		$routes['home-esp'] = array(
-			'route' => '/esp/home',
+			'route' => '/home-esp',
 			'controller' => 'espController',
 			'action' => 'home'
 		);
@@ -138,15 +138,9 @@ class Route extends Bootstrap {
 		);
 
 		$routes['pedidos-esp'] = array(
-			'route' => '/esp/pedidos',
-			'controller' => 'espController',
+			'route' => '/pedidos-esp',
+			'controller' => 'EspController',
 			'action' => 'pedidos'
-		);
-
-		$routes['pedidos-esp'] = array(
-			'route' => '/esp/calendario',
-			'controller' => 'espController',
-			'action' => 'calendario'
 		);
 
 		$routes['aceita_pedido'] = array(
@@ -172,6 +166,12 @@ class Route extends Bootstrap {
 			'route' => '/esp/pedido_visu_esp',
 			'controller' => 'EspController',
 			'action' => 'pedidoVisuEsp'
+		);
+
+		$routes['calendario'] = array(
+			'route' => '/calendario-esp',
+			'controller' => 'EspController',
+			'action' => 'calendario'
 		);
 		
 		//rotas de autenticação//
