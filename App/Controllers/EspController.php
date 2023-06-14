@@ -199,7 +199,7 @@ class EspController extends Action
 
                         $usuario->uploadImagem();
               
-                        $this->render('configurar','layout3');
+                        header('Location:/configurar-esp');
                     }else
                         echo "<p>Falha ao enviar arquivo</p>";
 
