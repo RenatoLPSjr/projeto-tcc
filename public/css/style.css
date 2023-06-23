@@ -118,3 +118,48 @@ body{
 .container.meio {
     margin-left: 80px;
 }
+
+.chat-box {
+    width: 1300px;
+    height: 600px;
+    border: 1px black solid;
+    border-radius: 20px;
+}
+
+.chat-contatos {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 5px;
+    height: 540px;
+}
+
+.chat-msg {
+    border: 1px solid black;
+    width: 1050px;
+    border-radius: 5px;
+    margin: 5px 0 10px 0;
+    height: 400px;
+}
+
+.chat-text{
+    width: 1050px;
+    margin-bottom: 5px;
+}
+
+.nome-funcionario{
+    text-align: start;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px black solid;
+    margin-top: 5px;
+}
+
+.nome-funcionario a{
+    text-decoration: none;
+    color: black;
+}
+
+.img-user{
+    width: 40px;
+    border-radius: 50%;
+}

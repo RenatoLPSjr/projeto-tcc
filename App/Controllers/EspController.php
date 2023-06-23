@@ -25,6 +25,13 @@ class EspController extends Action
     public function calendario() 
     {
 
+        session_start();
+        $usuario = Container::getModel('Usuario');
+        $id = $_SESSION['id'];
+		$usuario = $usuario->getById($id);
+
+        $this->view->usuario = $usuario;
+
         $this->render('calendario','layout3');
     }
 
@@ -183,7 +190,7 @@ class EspController extends Action
                   $novoNomeDoArquivo = uniqid();
                   $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
 
-                    if($extensao != "jpg" && $extensao != 'png'){
+                    if($extensao != "jpg" && $extensao != 'png' && $extensao != 'jpeg'){
                         die("Tipo de arquivo não aceito");
                     }
 
@@ -199,7 +206,7 @@ class EspController extends Action
 
                         $usuario->uploadImagem();
               
-                        header('Location:/configurar-esp');
+                        header('Location:/esp/configurar');
                     }else
                         echo "<p>Falha ao enviar arquivo</p>";
 

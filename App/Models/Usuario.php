@@ -129,6 +129,19 @@
             
         }
 
+        public function getChat()
+        {
+            $query = "
+                select id, nome, email, path_imagem, nome_imagem, especialidade from usuarios where id NOT IN (1, 26, 27)
+            ";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);  
+            
+        }
+
         public function getHome()
         {
             $query = "

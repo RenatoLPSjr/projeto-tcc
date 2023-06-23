@@ -46,6 +46,12 @@ class Route extends Bootstrap {
 			'action' => 'funcionario'
 		);
 
+		$routes['chat-adm'] = array(
+			'route' => '/adm/chat',
+			'controller' => 'admController',
+			'action' => 'chat'
+		);
+
 		$routes['cadastrado'] = array(
 			'route' => '/cadastrado',
 			'controller' => 'admController',
@@ -119,7 +125,7 @@ class Route extends Bootstrap {
 		////////////////////////
 
 		$routes['home-esp'] = array(
-			'route' => '/home-esp',
+			'route' => '/esp/home',
 			'controller' => 'espController',
 			'action' => 'home'
 		);
@@ -132,13 +138,13 @@ class Route extends Bootstrap {
 		);
 
 		$routes['configurar'] = array(
-			'route' => '/configurar-esp',
+			'route' => '/esp/configurar',
 			'controller' => 'EspController',
 			'action' => 'configurar'
 		);
 
 		$routes['pedidos-esp'] = array(
-			'route' => '/pedidos-esp',
+			'route' => '/esp/pedidos',
 			'controller' => 'EspController',
 			'action' => 'pedidos'
 		);
@@ -169,7 +175,7 @@ class Route extends Bootstrap {
 		);
 
 		$routes['calendario'] = array(
-			'route' => '/calendario-esp',
+			'route' => '/esp/calendario',
 			'controller' => 'EspController',
 			'action' => 'calendario'
 		);
@@ -219,6 +225,17 @@ class Route extends Bootstrap {
 			'route' => '/atualizar_pedido',
 			'controller' => 'PedidoController',
 			'action' => 'atualizarPedido'
+		);
+
+		//rotas de CHAT//
+		
+		////////////////////////
+
+
+		$routes['nova-conversa'] = array(
+			'route' => '/nova-conversa',
+			'controller' => 'ChatController',
+			'action' => 'CriarConversa'
 		);
 
 		$this->setRoutes($routes);

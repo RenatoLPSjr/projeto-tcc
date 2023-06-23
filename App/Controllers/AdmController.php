@@ -20,6 +20,15 @@ class AdmController extends Action
 		$this->render('home','layout2');
 	}
 
+	public function chat() 
+	{
+		$usuario = Container::getModel('Usuario');
+		$usuarios = $usuario->getChat();
+
+		$this->view->usuarios = $usuarios;
+		$this->render('chat','layout2');
+	}
+
 	public function funcionario() 
 	{
 		$usuario = Container::getModel('Usuario');
