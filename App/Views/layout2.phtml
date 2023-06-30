@@ -38,7 +38,7 @@ if (!isset($_SESSION))
 
 		<div class="collapse navbar-collapse justify-content-end">	
 			<div class="navbar-nav">
-				<a class="nav-link" href="/configurar"><img style="width:30px" src="/img/user.png">&nbsp;<?php echo $_SESSION['nome'] ?></a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a class="nav-link" href="/adm/configurar"><img style="width:30px" src="/img/user.png">&nbsp;<?php echo $_SESSION['nome'] ?></a>&nbsp;&nbsp;&nbsp;&nbsp;
 				<a type="button" class="button" href="/sair">Sair</a>
 			</div>
 		</div>
@@ -46,8 +46,10 @@ if (!isset($_SESSION))
 	</nav>
 
 	<div class="lista-lateral">
-		<div class="foto">
-
+	<div class="foto">
+			    
+            <img src="/<?php echo $_SESSION['path_imagem'] ?>" style="width: 140px;" alt="Imagem do usuário">
+				
 		</div>
 		<ul class="form-lateral">
 			<li class="lista principal"><a class="link" href="/adm/home">Home</a></li>

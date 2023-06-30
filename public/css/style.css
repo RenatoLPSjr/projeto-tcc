@@ -115,6 +115,9 @@ body{
 }
 
 
+
+
+
 .container.meio {
     margin-left: 80px;
 }
@@ -124,25 +127,31 @@ body{
     height: 600px;
     border: 1px black solid;
     border-radius: 20px;
+    background-color:  rgba(238, 238, 238, 0.91);
 }
 
 .chat-contatos {
     border: 1px solid black;
+    width: 330px;
     border-radius: 5px;
     margin: 5px;
     height: 540px;
+    background-color:  white;
 }
 
 .chat-msg {
-    border: 1px solid black;
-    width: 1050px;
+    background-color:  white;
+    width: 920px;
     border-radius: 5px;
     margin: 5px 0 10px 0;
-    height: 400px;
+    height: 800px;
+    max-height: 400px; /* Altura máxima da área de mensagens */
+    overflow-y: auto; /* Adicionar barra de rolagem vertical conforme necessário */
 }
 
+
 .chat-text{
-    width: 1050px;
+    width: 920px;
     margin-bottom: 5px;
 }
 
@@ -163,3 +172,16 @@ body{
     width: 40px;
     border-radius: 50%;
 }
+
+.menssagens{
+    display: block;
+}
+
+.message {
+    display: inline-block;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  

@@ -11,13 +11,27 @@ class AdmController extends Action
 {
 	public function home() 
 	{
+		session_start();
 		$usuario = Container::getModel('Usuario');
 		$usuarios = $usuario->getHome();
 		$graficos = $usuario->getHomeGrafico();
 
 		$this->view->usuarios = $usuarios;
 		$this->view->graficos = $graficos;
+
 		$this->render('home','layout2');
+	}
+
+	public function configurar() 
+	{
+        session_start();
+        $usuario = Container::getModel('Usuario');
+        $id = $_SESSION['id'];
+		$usuario = $usuario->getById($id);
+
+        $this->view->usuario = $usuario;
+
+		$this->render('configurar','layout2');
 	}
 
 	public function chat() 
@@ -44,10 +58,6 @@ class AdmController extends Action
 		$this->render('cadastrado','layout2');
 	}
 
-	public function configurar()
-	{
-		$this->render('configurar','layout2');
-	}
 
 	public function deletar()
 	{	
@@ -216,6 +226,49 @@ class AdmController extends Action
 				}
 			}
 		}
+
+		public function uploadImagem()
+        {
+			session_start();
+            if (isset($_FILES['image'])) {
+                $file = $_FILES['image'];
+                if($file['size'] > 2097152){
+                    die("Arquivo muito grande, max 2mb");
+                }
+
+                // Verificar se houve algum erro no upload
+                if ($file['error'] === UPLOAD_ERR_OK) {
+                  $pasta = "arquivos/";
+                  $nomeDoArquivo = $file['name'];
+                  $novoNomeDoArquivo = uniqid();
+                  $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
+
+                    if($extensao != "jpg" && $extensao != 'png' && $extensao != 'jpeg'){
+                        die("Tipo de arquivo não aceito");
+                    }
+
+                    $path = $pasta . $novoNomeDoArquivo . "." . $extensao;
+
+                    $deu_certo = move_uploaded_file($file["tmp_name"], $pasta . $novoNomeDoArquivo . "." . $extensao);
+                    
+                    if($deu_certo){
+                        $usuario = Container::getModel('Usuario');
+                        $usuario->__set('path_imagem', $path);
+                        $usuario->__set('id', $_SESSION['id']);
+
+                        $usuario->uploadImagem();
+              
+                        header('Location:/adm/configurar');
+                    }else
+                        echo "<p>Falha ao enviar arquivo</p>";
+
+                  // Conectar ao banco de dados
+
+
+
+                }
+              }
+			}
 
 
 	

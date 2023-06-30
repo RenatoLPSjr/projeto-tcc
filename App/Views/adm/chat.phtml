@@ -6,12 +6,13 @@
         </div>
         <div class="chat-body row">
             <div class="chat-contatos col-2">
-            <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
-                <p class="nome-funcionario" data-id="<?= $usuario['id'] ?>">
-                    <img class="img-user" src="/<?= $usuario['path_imagem'] ?>" >
-                    <a><?= $usuario['nome'] ?></a>
-                </p>
-            <?php } ?>
+                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+                    <p class="nome-funcionario d-flex align-items-center justify-content-between" >
+                        <img class="img-user" src="/<?= $usuario['path_imagem'] ?>" >
+                        <a><?= $usuario['nome'] ?></a>
+                        <a href="#" class="botao-chamar btn btn-primary" data-id="<?= $usuario['id'] ?>">Chamar</a>
+                    </p>
+                <?php } ?>
             </div>
             <div class="col-8">
                 <div class="chat-msg">
@@ -36,35 +37,112 @@
 
     <script>
 
-        $(document).ready(function() {
-            $('.nome-funcionario').click(function() {
-                var OtherUser = $(this).data('id');
-                var mainUser = $('#main-user-id').val();
+    $(document).ready(function() {
+        $('.botao-chamar').click(function() {
+            var otherUser = $(this).data('id');
+            var mainUser = $('#main-user-id').val();
 
-                $.ajax({
-                    url: '/nova-conversa',
-                    method: 'POST',
-                    data: { OtherUser: OtherUser,
-                            mainUser: mainUser},
-                    success: function(response) {
-                        var conversa = JSON.parse(response);
-                        var mensagensDiv = $('.chat-msg .mensagens');
+            $.ajax({
+                url: '/nova-conversa',
+                method: 'POST',
+                data: { otherUser: otherUser, mainUser: mainUser },
+                success: function(response) {
+                    var conversa = JSON.parse(response);
 
-                        var nomeUsuario = conversa.otherUser;
+                    var conversaElement = conversa[0]; // Acessar o primeiro elemento do array
+                    if (conversaElement && conversaElement.otherUser !== undefined) {
+                        var nomeUsuario = conversaElement.nomeUsuario;
                         $('#nome-usuario').text(nomeUsuario);
 
-                        conversa.mensagens.forEach(function(mensagem) {
-                            var htmlMensagem = '<div><strong>' + nomeUsuario + ':</strong> ' + mensagem.texto + '</div>';
-                            mensagensDiv.append(htmlMensagem);
-                        });
+                        // Adicionar o nomeUsuario ao objeto data
+                        var data = {
+                            otherUser: otherUser,
+                            mainUser: mainUser,
+                            nomeUsuario: nomeUsuario
+                        };
 
-                    },
-                    error: function() {
-                        alert('Ocorreu um erro ao buscar o usuário.');
+                        // Rolar para a última mensagem
+                        function scrollToBottom() {
+                            var container = $('.chat-msg .mensagens');
+                            container.scrollTop(container.prop('scrollHeight'));
+                        }
+
+                        // Função para buscar as mensagens da conversa
+                        function buscarMensagensConversa() {
+                        // Código para buscar as mensagens da conversa atualizado aqui
+                             $.ajax({
+                            url: '/buscar-mensagens',
+                            method: 'POST',
+                            data: { otherUser: otherUser, mainUser: mainUser },
+                            success: function(response) {
+                                var mensagens = JSON.parse(response);
+
+
+
+                                if (mensagens && mensagens.length > 0) {
+                                    $('.chat-msg .mensagens').empty(); // Limpar as mensagens existentes
+
+                                    for (var i = 0; i < mensagens.length; i++) {
+                                        var mensagem = mensagens[i];
+                                        var classeMensagem = (mensagem.remetente === 'mainUser') ? 'd-flex justify-content-end' : 'd-flex justify-content-start';
+                                        var nomeRemetente = (mensagem.remetente === 'mainUser') ? 'Administrador' : mensagem.nomeUsuario;
+
+                                        var mensagemHtml = '<div class="message ' + classeMensagem + '">';
+                                        mensagemHtml += '<strong>' + nomeRemetente + ':</strong> ' + mensagem.mensagem;
+                                        mensagemHtml += '</div>';
+
+                                        $('.chat-msg .mensagens').append(mensagemHtml);
+                                        scrollToBottom();
+                                    }
+                                }
+                            },
+                                error: function() {
+                                    alert('Ocorreu um erro ao buscar as mensagens.');
+                                }
+                            });
+
+                        }
+                       
+                        // Chamar a função para buscar as mensagens da conversa
+                        buscarMensagensConversa();
+
+                        // Função para enviar mensagem
+                        $('#form-chat').submit(function(event) {
+                            event.preventDefault(); // Impedir o envio do formulário
+
+                            var mensagem = $('#texto-chat').val(); // Obter a mensagem digitada
+
+                            $.ajax({
+                                url: '/enviar-mensagem', // Altere para o caminho correto do arquivo PHP
+                                method: 'POST',
+                                data: { otherUser: otherUser, mainUser: mainUser, mensagem: mensagem },
+                                success: function(response) {
+                                    // Atualizar o campo "mensagens" com a nova mensagem
+                                    $('.chat-msg .mensagens').append('<div class="message mensagem-ida"><strong>Administrador:</strong> ' + mensagem + '</div>');
+
+                                    // Limpar o campo de entrada de mensagem
+                                    $('#texto-chat').val('');
+
+                                    // Após enviar a mensagem, buscar as mensagens atualizadas
+                                    buscarMensagensConversa();
+                                    scrollToBottom()
+                                },
+                                error: function() {
+                                    alert('Ocorreu um erro ao enviar a mensagem.');
+                                }
+                            });
+                        });
                     }
-                });
+
+
+                },
+                error: function() {
+                    alert('Ocorreu um erro ao buscar o usuário.');
+                }
             });
         });
+    });
+
 
 
     </script>

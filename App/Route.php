@@ -64,8 +64,8 @@ class Route extends Bootstrap {
 			'action' => 'deletar'
 		);
 
-		$routes['configurar'] = array(
-			'route' => '/configurar',
+		$routes['configurar-adm'] = array(
+			'route' => '/adm/configurar',
 			'controller' => 'admController',
 			'action' => 'configurar'
 		);
@@ -80,6 +80,12 @@ class Route extends Bootstrap {
 			'route' => '/novo_especialista',
 			'controller' => 'PedidoController',
 			'action' => 'novoEspecialista'
+		);
+
+		$routes['uploadImagemAdm'] = array(
+			'route' => '/uploadImagemAdm',
+			'controller' => 'AdmController',
+			'action' => 'uploadImagem'
 		);
 
 		$routes['editar'] = array(
@@ -137,7 +143,7 @@ class Route extends Bootstrap {
 			'action' => 'uploadImagem'
 		);
 
-		$routes['configurar'] = array(
+		$routes['configurar-esp'] = array(
 			'route' => '/esp/configurar',
 			'controller' => 'EspController',
 			'action' => 'configurar'
@@ -235,7 +241,19 @@ class Route extends Bootstrap {
 		$routes['nova-conversa'] = array(
 			'route' => '/nova-conversa',
 			'controller' => 'ChatController',
-			'action' => 'CriarConversa'
+			'action' => 'criarConversa'
+		);
+
+		$routes['enviar-mensagem'] = array(
+			'route' => '/enviar-mensagem',
+			'controller' => 'ChatController',
+			'action' => 'enviarMensagem'
+		);
+
+		$routes['buscar-mensagem'] = array(
+			'route' => '/buscar-mensagens',
+			'controller' => 'ChatController',
+			'action' => 'buscarMensagem'
 		);
 
 		$this->setRoutes($routes);

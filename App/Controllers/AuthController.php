@@ -31,6 +31,9 @@ class AuthController extends Action
             $_SESSION['id'] = $usuario->__get('id');
             $_SESSION['nome'] = $usuario->__get('nome');
             $_SESSION['email'] = $usuario->__get('email');
+            $_SESSION['path_imagem'] = $usuario->__get('path_imagem');
+
+        
 
             header('Location: /adm/home');
         }else if($autenticado && $usuario->__get('tipo') == 2)
@@ -40,6 +43,7 @@ class AuthController extends Action
             $_SESSION['tipo'] = 2;
             $_SESSION['id'] = $usuario->__get('id');
             $_SESSION['nome'] = $usuario->__get('nome');
+            $_SESSION['path_imagem'] = $usuario->__get('path_imagem');
 
     
             header('Location: /esp/home');

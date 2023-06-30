@@ -96,7 +96,7 @@
 
             public function autenticar()
         {
-            $query = "select id, tipo, nome, email, status from usuarios where (email = :email) and (senha = :senha) and (status = 1)";
+            $query = "select id, tipo, nome, email,path_imagem, status from usuarios where (email = :email) and (senha = :senha) and (status = 1)";
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':email', $this->__get('email'));
             $stmt->bindValue(':senha', $this->__get('senha'));
@@ -108,7 +108,8 @@
             {
                 $this->__set('id', $usuario['id']);
                 $this->__set('nome', $usuario['nome']); 
-                $this->__set('tipo', $usuario['tipo']); 
+                $this->__set('tipo', $usuario['tipo']);
+                $this->__set('path_imagem', $usuario['path_imagem']);
             }
 
             return $usuario;

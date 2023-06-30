@@ -13,11 +13,6 @@ class EspController extends Action
     public function home() 
     {
         session_start();
-        $usuario = Container::getModel('Usuario');
-        $id = $_SESSION['id'];
-		$usuario = $usuario->getById($id);
-
-        $this->view->usuario = $usuario;
 
         $this->render('home','layout3');
     }
