@@ -52,6 +52,12 @@ class Route extends Bootstrap {
 			'action' => 'chat'
 		);
 
+		$routes['chat-pedido-adm'] = array(
+			'route' => '/adm/chat-pedido',
+			'controller' => 'admController',
+			'action' => 'chatPedido'
+		);
+
 		$routes['cadastrado'] = array(
 			'route' => '/cadastrado',
 			'controller' => 'admController',
@@ -155,6 +161,18 @@ class Route extends Bootstrap {
 			'action' => 'pedidos'
 		);
 
+		$routes['chat-pedido-esp'] = array(
+			'route' => '/esp/chat-pedido',
+			'controller' => 'EspController',
+			'action' => 'chatPedido'
+		);
+
+		$routes['chat-esp'] = array(
+			'route' => '/esp/chat',
+			'controller' => 'EspController',
+			'action' => 'chat'
+		);
+
 		$routes['aceita_pedido'] = array(
 			'route' => '/esp/aceita_pedido',
 			'controller' => 'espController',
@@ -244,16 +262,34 @@ class Route extends Bootstrap {
 			'action' => 'criarConversa'
 		);
 
+		$routes['nova-conversa-pedido'] = array(
+			'route' => '/nova-conversa-pedido',
+			'controller' => 'ChatController',
+			'action' => 'criarConversaPedido'
+		);
+
 		$routes['enviar-mensagem'] = array(
 			'route' => '/enviar-mensagem',
 			'controller' => 'ChatController',
 			'action' => 'enviarMensagem'
 		);
 
+		$routes['enviar-mensagem-pedido'] = array(
+			'route' => '/enviar-mensagem-pedido',
+			'controller' => 'ChatController',
+			'action' => 'enviarMensagemPedido'
+		);
+
 		$routes['buscar-mensagem'] = array(
 			'route' => '/buscar-mensagens',
 			'controller' => 'ChatController',
 			'action' => 'buscarMensagem'
+		);
+
+		$routes['buscar-mensagem-pedido'] = array(
+			'route' => '/buscar-mensagens-pedido',
+			'controller' => 'ChatController',
+			'action' => 'criarConversaPedido'
 		);
 
 		$this->setRoutes($routes);

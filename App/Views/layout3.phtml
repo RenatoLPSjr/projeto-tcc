@@ -46,13 +46,14 @@ if (!isset($_SESSION))
 		<ul class="form-lateral">
 			<li class="lista principal"><a class="link" href="/esp/home">Home</a></li>
 			<li hr class="lista principal" ><a class="link" href="/esp/pedidos">Pedidos</a></li>
-			<li class="lista principal">Mensagens</li>
+			<li class="lista principal"><a class="link" href="/esp/chat">Mensagens</a></li>
 			<li class="lista principal"><a class="link" href="/esp/calendario" id="calendario">Calendario</a></li>
 		</ul>
 </div>
 
-
+<div style="position:absolute;left: 170px">
 	<?= $this->content() ?>
+</div>
 
 
 

@@ -7,6 +7,7 @@
     class Conversa extends Model
     {
         private $id;
+        private $idPedido;
         private $mainUser;
         private $otherUser;
         private $date;
@@ -42,6 +43,33 @@
         
         }
 
+        public function verificarConversaExistentePedido($mainUser, $otherUser, $idPedido)
+        {
+            $query = "SELECT * FROM conversa WHERE (mainUser = :mainUser AND otherUser = :otherUser AND idPedido = :idPedido) OR (mainUser = :otherUser AND otherUser = :mainUser AND idPedido = :idPedido)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':mainUser', $mainUser);
+            $stmt->bindValue(':otherUser', $otherUser);
+            $stmt->bindValue(':idPedido', $idPedido);
+            $stmt->execute();
+        
+            $conversa = $stmt->fetch(\PDO::FETCH_ASSOC);
+        
+            if ($conversa) {
+                // Já existe uma conversa entre mainUser e otherUser
+                return array(
+                    'existe' => true,
+                    'idConversa' => $conversa['id']
+                );
+            } else {
+                // Não existe uma conversa entre mainUser e otherUser
+                return array(
+                    'existe' => false,
+                    'idConversa' => null
+                );
+            }
+        
+        }
+
         public function iniciarConversa($mainUser, $otherUser)
         {
 
@@ -49,6 +77,21 @@
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':mainUser', $mainUser);
             $stmt->bindValue(':otherUser', $otherUser);
+
+            $stmt->execute();
+        
+            // Retorne o ID da conversa recém-criada
+            return $this->db->lastInsertId();
+        }
+
+        public function iniciarConversaPedido($mainUser, $otherUser, $idPedido)
+        {
+
+            $query = "INSERT INTO conversa (mainUser, otherUser, idPedido) VALUES (:mainUser, :otherUser, :idPedido)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':mainUser', $mainUser);
+            $stmt->bindValue(':otherUser', $otherUser);
+            $stmt->bindValue(':idPedido', $idPedido);
             $stmt->execute();
         
             // Retorne o ID da conversa recém-criada

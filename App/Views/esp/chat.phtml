@@ -6,13 +6,17 @@
         </div>
         <div class="chat-body row">
             <div class="chat-contatos col-2">
-                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+
+            <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { 
+                
+                ?>
                     <p class="nome-funcionario d-flex align-items-center justify-content-between" >
                         <img class="img-user" src="/<?= $usuario['path_imagem'] ?>" >
                         <a><?= $usuario['nome'] ?></a>
-                        <a href="#" class="botao-chamar btn btn-primary" data-id="<?= $usuario['id'] ?>" data-nome="<?= $usuario['nome'] ?>">Chamar</a>
+                        <a href="#" class="botao-chamar btn btn-primary" data-id="<?= $usuario['id'] ?>" data-nome="<?php echo $_SESSION['nome'] ?>">Chamar</a>
                     </p>
                 <?php } ?>
+
             </div>
             <div class="col-8">
                 <div class="chat-msg">
@@ -37,7 +41,7 @@
 
     <script>
 
-    function buscarMensagensConversa(otherUser, mainUser, nomeUsuario) {
+    function buscarMensagensConversa(otherUser, mainUser,nomeUsuario) {
         // Código para buscar as mensagens da conversa atualizado aqui
         $.ajax({
             url: '/buscar-mensagens',
@@ -45,6 +49,7 @@
             data: { otherUser: otherUser, mainUser: mainUser, nomeUsuario: nomeUsuario },
             success: function(response) {
                 var mensagens = JSON.parse(response);
+                
 
             if (mensagens && mensagens.length > 0) {
                 $('.chat-msg .mensagens').empty(); // Limpar as mensagens existentes
@@ -52,7 +57,7 @@
                 for (var i = 0; i < mensagens.length; i++) {
                     var mensagem = mensagens[i];
                     var classeMensagem = (mensagem.remetente === 'mainUser') ? 'mensagem-ida' : 'mensagem-volta';
-                    var nomeRemetente = (mensagem.remetente === 'mainUser') ? 'Administrador' : nomeUsuario;
+                    var nomeRemetente = (mensagem.remetente === 'mainUser') ? nomeUsuario : 'Administrador';
 
                     var mensagemHtml = '<div class="message ' + classeMensagem + '">';
                     mensagemHtml += '<strong>' + nomeRemetente + ':</strong> ' + mensagem.mensagem;
@@ -62,7 +67,7 @@
                     
                 }
 
-                var container = $('.chat-msg');
+                var container = $('.chat-msg'); 
                 container.scrollTop(container.prop("scrollHeight"));
             }
             },
@@ -78,9 +83,6 @@
             var otherUser = $(this).data('id');
             var mainUser = $('#main-user-id').val();
             var nomeUsuario = $(this).data('nome');
-
-            
-
             $.ajax({
                 url: '/nova-conversa',
                 method: 'POST',
@@ -88,12 +90,16 @@
                 success: function(response) {
                     var conversa = JSON.parse(response);
 
+                    console.log(conversa)
+
                     var conversaElement = conversa[0]; // Acessar o primeiro elemento do array
                     if (conversaElement && conversaElement.otherUser !== undefined) {
                         var nomeUsuario = conversaElement.nomeUsuario;
                         $('#nome-usuario').text(nomeUsuario);
 
                         // Adicionar o nomeUsuario ao objeto data
+
+                       
                         var data = {
                             otherUser: otherUser,
                             mainUser: mainUser,
@@ -124,7 +130,7 @@
                                     container.scrollTop(container.prop("scrollHeight"));
 
                                     // Após enviar a mensagem, buscar as mensagens atualizadas
-                                    buscarMensagensConversa(otherUser, mainUser);
+                                    buscarMensagensConversa(otherUser, mainUser, nomeUsuario);
                                    
                                 },
                                 error: function() {

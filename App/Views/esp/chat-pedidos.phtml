@@ -1,18 +1,29 @@
+<?php 
+$pedidos = $this->view->pedidos;
+
+
+?>
+
+
 <body>
     <input type="hidden" id="main-user-id" value="<?= $_SESSION['id'] ?>">
+    <input type="hidden" id="main-pedido-id" value="<?= $pedidos['id'] ?>">
     <div class="container chat-box mt-4 ms-4">
         <div class="chat-header">
-            <h2>Sistema de Chat</h2>
+            <h2>Sistema de Chat - Titulo:<?= $pedidos['titulo'] ?></h2>
         </div>
         <div class="chat-body row">
             <div class="chat-contatos col-2">
-                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+
+                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) {
+                ?>
                     <p class="nome-funcionario d-flex align-items-center justify-content-between" >
                         <img class="img-user" src="/<?= $usuario['path_imagem'] ?>" >
                         <a><?= $usuario['nome'] ?></a>
-                        <a href="#" class="botao-chamar btn btn-primary" data-id="<?= $usuario['id'] ?>" data-nome="<?= $usuario['nome'] ?>">Chamar</a>
+                        <a href="#" class="botao-chamar btn btn-primary" data-id="<?= $usuario['id'] ?>" data-nome="<?php echo $_SESSION['nome'] ?>">Chamar</a>
                     </p>
                 <?php } ?>
+                
             </div>
             <div class="col-8">
                 <div class="chat-msg">
@@ -37,14 +48,15 @@
 
     <script>
 
-    function buscarMensagensConversa(otherUser, mainUser, nomeUsuario) {
+    function buscarMensagensConversaPedido(otherUser, mainUser,nomeUsuario, idPedido) {
         // Código para buscar as mensagens da conversa atualizado aqui
         $.ajax({
-            url: '/buscar-mensagens',
+            url: '/buscar-mensagens-pedido',
             method: 'POST',
-            data: { otherUser: otherUser, mainUser: mainUser, nomeUsuario: nomeUsuario },
+            data: { otherUser: otherUser, mainUser: mainUser, nomeUsuario: nomeUsuario, idPedido: idPedido },
             success: function(response) {
                 var mensagens = JSON.parse(response);
+                
 
             if (mensagens && mensagens.length > 0) {
                 $('.chat-msg .mensagens').empty(); // Limpar as mensagens existentes
@@ -52,7 +64,7 @@
                 for (var i = 0; i < mensagens.length; i++) {
                     var mensagem = mensagens[i];
                     var classeMensagem = (mensagem.remetente === 'mainUser') ? 'mensagem-ida' : 'mensagem-volta';
-                    var nomeRemetente = (mensagem.remetente === 'mainUser') ? 'Administrador' : nomeUsuario;
+                    var nomeRemetente = (mensagem.remetente === 'mainUser') ?  nomeUsuario : 'Administrador';
 
                     var mensagemHtml = '<div class="message ' + classeMensagem + '">';
                     mensagemHtml += '<strong>' + nomeRemetente + ':</strong> ' + mensagem.mensagem;
@@ -62,7 +74,7 @@
                     
                 }
 
-                var container = $('.chat-msg');
+                var container = $('.chat-msg'); 
                 container.scrollTop(container.prop("scrollHeight"));
             }
             },
@@ -77,16 +89,17 @@
         $('.botao-chamar').click(function() {
             var otherUser = $(this).data('id');
             var mainUser = $('#main-user-id').val();
-            var nomeUsuario = $(this).data('nome');
+            var idPedido = $('#main-pedido-id').val();
 
             
-
             $.ajax({
-                url: '/nova-conversa',
+                url: '/nova-conversa-pedido',
                 method: 'POST',
-                data: { otherUser: otherUser, mainUser: mainUser },
+                data: { otherUser: otherUser, mainUser: mainUser, idPedido: idPedido },
                 success: function(response) {
                     var conversa = JSON.parse(response);
+
+                    console.log(conversa)
 
                     var conversaElement = conversa[0]; // Acessar o primeiro elemento do array
                     if (conversaElement && conversaElement.otherUser !== undefined) {
@@ -94,14 +107,17 @@
                         $('#nome-usuario').text(nomeUsuario);
 
                         // Adicionar o nomeUsuario ao objeto data
+
+                       
                         var data = {
                             otherUser: otherUser,
                             mainUser: mainUser,
-                            nomeUsuario: nomeUsuario
+                            nomeUsuario: nomeUsuario,
+                            idPedido: idPedido
                         };
 
                         // Chamar a função para buscar as mensagens da conversa
-                        buscarMensagensConversa(otherUser, mainUser, nomeUsuario);
+                        buscarMensagensConversaPedido(otherUser, mainUser, nomeUsuario, idPedido);
 
                         // Função para enviar mensagem
                         $('#form-chat').submit(function(event) {
@@ -110,10 +126,11 @@
                             var mensagem = $('#texto-chat').val(); // Obter a mensagem digitada
 
                             $.ajax({
-                                url: '/enviar-mensagem', // Altere para o caminho correto do arquivo PHP
+                                url: '/enviar-mensagem-pedido', // Altere para o caminho correto do arquivo PHP
                                 method: 'POST',
-                                data: { otherUser: otherUser, mainUser: mainUser, mensagem: mensagem },
+                                data: { otherUser: otherUser, mainUser: mainUser, mensagem: mensagem, idPedido: idPedido},
                                 success: function(response) {
+                                    console.log(idPedido)
                                     // Atualizar o campo "mensagens" com a nova mensagem
                                     $('.chat-msg .mensagens').append('<div class="message mensagem-ida"><strong>Adm:</strong> ' + mensagem + '</div>');
 
@@ -124,7 +141,7 @@
                                     container.scrollTop(container.prop("scrollHeight"));
 
                                     // Após enviar a mensagem, buscar as mensagens atualizadas
-                                    buscarMensagensConversa(otherUser, mainUser);
+                                    buscarMensagensConversaPedido(otherUser, mainUser, nomeUsuario, idPedido);
                                    
                                 },
                                 error: function() {

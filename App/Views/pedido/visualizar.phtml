@@ -15,7 +15,7 @@
                 <th>Lucro</th>
                 <th>Lauda</th>
                 <th>Esp.</th>
-                <th>Pago</th>
+                <th>Chat</th>
                 <th>Recibo</th>
                 <th>Diretório</th>
                 <th>Obs</th>
@@ -63,7 +63,7 @@
                         <?php } ?>
                     </td>
 
-                    <td><?= $pedido['pagamento'] ?></td>
+                    <td><a href="/adm/chat-pedido?id=<?= $pedido['id'] ?>&id_usuario=<?= $pedido['id_usuario'] ?>">Chat</a></td>
                     <td><?= $pedido['fonte'] ?></td>
                     <td><?= $pedido['fonte'] ?></td>
                     <td><a href="pedido_visu_adm?id=<?= $pedido['id'] ?>&id_usuario=<?= $pedido['id_usuario'] ?>">Inf</td>

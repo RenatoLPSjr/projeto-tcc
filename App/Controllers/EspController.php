@@ -30,6 +30,29 @@ class EspController extends Action
         $this->render('calendario','layout3');
     }
 
+    public function chat() 
+	{
+		$usuario = Container::getModel('Usuario');
+		$usuarios = $usuario->getChatEsp();
+
+		$this->view->usuarios = $usuarios;
+		$this->render('chat','layout3');
+	}
+
+    public function chatPedido() 
+	{
+		$usuario = Container::getModel('Usuario');
+		$pedido = Container::getModel('Pedidos');
+		$id = $_GET['id'];
+
+		$pedidos = $pedido->getPedidoById($id);
+		$usuarios = $usuario->getChatEsp();
+
+		$this->view->pedidos = $pedidos;
+		$this->view->usuarios = $usuarios;
+		$this->render('chat-pedidos','layout3');
+	}
+
     public function configurar()
 	{
         session_start();

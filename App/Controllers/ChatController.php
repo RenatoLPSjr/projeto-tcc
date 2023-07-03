@@ -60,6 +60,25 @@ class ChatController extends Action
         }
     }
 
+    public function enviarMensagemPedido()
+    {
+        session_start();
+        $mensagem = Container::getModel('Mensagens');
+        $mainUser = $_POST['mainUser'];
+        $otherUser = $_POST['otherUser'];
+        $mensagens = $_POST['mensagem'];
+        $idPedido = $_POST['idPedido'];
+
+        $criarMensagem = $mensagem->novaMensagemPedido($mainUser, $otherUser, $mensagens, $idPedido);
+
+        if ($criarMensagem) {
+            echo json_encode($criarMensagem);
+        } else {
+            http_response_code(500);
+            echo json_encode(['error' => 'Erro ao criar a mensagem.']);
+        }
+    }
+
     public function buscarMensagem()
     {
         session_start();
@@ -74,6 +93,39 @@ class ChatController extends Action
         } else {
             http_response_code(500);
             echo json_encode(['error' => 'Erro ao criar a mensagem.']);
+        }
+    }
+
+
+
+    public function criarConversaPedido()
+    {
+
+        session_start();
+        $mensagem = Container::getModel('Mensagens');
+        $mainUser = $_POST['mainUser'];
+        $otherUser = $_POST['otherUser'];
+        $idPedido = $_POST['idPedido'];
+
+        $conversaExistente = $mensagem->verificarConversaPedido($mainUser, $otherUser,$idPedido);
+
+
+        if (!$conversaExistente) {
+            // Não existe uma conversa, chamar a função iniciarConversa
+            $mensagem->iniciarMensagemPedido($mainUser, $otherUser, $idPedido);
+            $mensagensConversa = $mensagem->buscarMensagensConversaPedido($mainUser, $otherUser, $idPedido);
+
+        } else {
+            // Já existe uma conversa, chamar a função buscarMensagensConversa
+            $mensagensConversa = $mensagem->buscarMensagensConversaPedido($mainUser, $otherUser, $idPedido);
+        }
+
+        if ($mensagensConversa) {
+
+            echo json_encode($mensagensConversa);
+        } else {
+            http_response_code(500);
+            echo json_encode(['error' => 'Erro ao criar ou buscar a conversa.']);
         }
     }
 

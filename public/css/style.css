@@ -116,23 +116,22 @@ body{
 
 
 
-
-
 .container.meio {
     margin-left: 80px;
 }
 
 .chat-box {
-    width: 1300px;
+    width: 1400px;
     height: 600px;
     border: 1px black solid;
     border-radius: 20px;
     background-color:  rgba(238, 238, 238, 0.91);
 }
 
+
 .chat-contatos {
     border: 1px solid black;
-    width: 330px;
+    width: 310px;
     border-radius: 5px;
     margin: 5px;
     height: 540px;
@@ -173,15 +172,24 @@ body{
     border-radius: 50%;
 }
 
-.menssagens{
-    display: block;
+.mensagens {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
 }
 
 .message {
     display: inline-block;
     background-color: #f2f2f2;
     border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
+    padding: 15px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.mensagem-ida {
+    align-self: flex-end;
+}
+
   

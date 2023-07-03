@@ -94,6 +94,17 @@
             return $usuario;
         }
 
+        public function getByIdChat($id)
+        {
+            $query = "select * from usuarios where id = :id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(":id", $id);   
+            $stmt->execute();
+            $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);  
+        
+            return $usuario;
+        }
+
             public function autenticar()
         {
             $query = "select id, tipo, nome, email,path_imagem, status from usuarios where (email = :email) and (senha = :senha) and (status = 1)";
@@ -134,6 +145,19 @@
         {
             $query = "
                 select id, nome, email, path_imagem, nome_imagem, especialidade from usuarios where id NOT IN (1, 26, 27)
+            ";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);  
+            
+        }
+
+        public function getChatEsp()
+        {
+            $query = "
+                select id, nome, email, path_imagem, nome_imagem, especialidade from usuarios where id = 1
             ";
             $stmt = $this->db->prepare($query);
             $stmt->execute();

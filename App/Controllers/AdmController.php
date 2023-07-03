@@ -43,6 +43,21 @@ class AdmController extends Action
 		$this->render('chat','layout2');
 	}
 
+	public function chatPedido() 
+	{
+		$usuario = Container::getModel('Usuario');
+		$pedido = Container::getModel('Pedidos');
+		$id = $_GET['id'];
+		$id_usuario = $_GET['id_usuario'];
+
+		$pedidos = $pedido->getPedidoById($id);
+		$usuarios = $usuario->getByIdChat($id_usuario);
+
+		$this->view->pedidos = $pedidos;
+		$this->view->usuarios = $usuarios;
+		$this->render('chat-pedidos','layout2');
+	}
+
 	public function funcionario() 
 	{
 		$usuario = Container::getModel('Usuario');

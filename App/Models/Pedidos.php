@@ -152,7 +152,9 @@
             JOIN 
                 usuarios 
             ON 
-                pedidos.id_usuario = usuarios.id;
+                pedidos.id_usuario = usuarios.id
+            ORDER BY 
+                pedidos.id ASC;
             ";
             $stmt = $this->db->prepare($query);
             $stmt->execute();
