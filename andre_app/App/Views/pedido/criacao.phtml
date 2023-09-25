@@ -1,0 +1,186 @@
+<div class="container mt-4">
+    <div class="card cartao-pedido">
+        <div class="card-header">
+            <h4>Formulário Principal</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" action="/criar_pedido">
+                <div class="row"><!--Linha principal-->
+
+                    <div class="col-8 m-2 border-end"><!--Primeira coluna-->
+
+                        <div class="row"><!--Primeira Linha-->
+
+                            <div class="col">
+                                <label for="titulo-pedido" class="form-label">Titulo do Pedido</label>
+                                <input type="text" class="form-control" id="titulo-pedido" name="titulo" placeholder="Digite o titulo aqui">
+                            </div>
+                        
+                        </div>
+
+                        <div class="row"><!--Segunda Linha-->
+
+                            <div class="col">
+                                <label for="receita_bruta" class="form-label">Receita bruta</label>
+                                <input type="number" class="form-control" id="receita_bruta" name="receita_bruta" placeholder="Digite a receita bruta aqui" oninput="updateOferta()">
+                            </div>
+
+                            <div class="col">
+                                <label for="oferta" class="form-label">Oferta</label>
+                                <input type="number" class="form-control" id="oferta" name="oferta" placeholder="Digite o valor da oferta aqui">
+                            </div>
+
+                            <div class="col">
+                                <label for="paginas" class="form-label">Número de paginas</label>
+                                <input type="number" class="form-control" id="paginas" name="paginas" placeholder="Digite o numero de paginas">
+                            </div>
+
+                        </div><!--FIM Segunda Linha-->
+                        
+
+                        <div class="row mb-3"><!--Terceira Linha-->
+
+                            <div class="col">
+                                <label for="prazo_real" class="form-label">Prazo real</label>
+                                <input type="date" class="form-control" id="prazo_real" name="prazo_real" placeholder="Digite o prazo real" oninput="calcularDatas()">
+                            </div>
+
+                            <div class="col">
+                                <label for="prazo_entrega" class="form-label">Prazo de entrega</label>
+                                <input type="date" class="form-control" id="prazo_entrega" name="prazo_entrega" placeholder="Digite o prazo de entrega">
+                            </div>
+
+                            
+                            <div class="col">
+                                <label for="prazo_garantia" class="form-label">Prazo de garantia</label>
+                                <input type="date" class="form-control" id="prazo_garantia" name="prazo_garantia" placeholder="Digite o prazo de garantia">
+                            </div>
+
+                        </div><!--FIM Terceira Linha-->
+
+                        <div class="row mb-3"><!--Quarta Linha-->
+
+                            <div class="col">
+                                <label for="tipo" class="form-label">Tipo de trabalho</label>
+                                <input type="text" class="form-control" id="tipo" name="tipo" placeholder="Digite o tipo de trabalho">
+                            </div>
+
+                            <div class="col">
+                                <label for="metodologia" class="form-label">Metodologia</label>
+                                <input type="text" class="form-control" id="metodologia" name="metodologia" value="Revisão Bibliográfica">
+                            </div>
+
+                            <div class="col">
+                                <label for="disciplina" class="form-label">Disciplina</label>
+                                <input type="text" class="form-control" id="disciplina" name="disciplina" placeholder="Digite a disciplina aqui">
+                            </div>
+
+                        </div><!--FIM Quarta Linha-->
+
+                        <div class="row mb-3"><!--Quinta Linha-->
+
+                            <div class="col">
+                                <label for="tema" class="form-label">Tema</label>
+                                <input type="text" class="form-control" id="tema" name="tema" placeholder="Digite o tema aqui">
+                            </div>
+
+                        </div><!--FIM Quinta Linha-->
+
+                        <div class="row mb-3"><!--Sexta Linha-->
+
+                            <div class="col">
+                                <label for="observacao" class="form-label">Observacao</label>
+                                <input type="text" class="form-control" id="observacao" name="observacao" placeholder="Digite a observação aqui">
+                            </div>
+
+                        </div><!--FIM Sexta Linha-->
+ 
+
+                    </div><!--FIM Primeira coluna-->
+
+                    <div class="col m-2"><!--Segunda coluna-->
+
+                        <div class="row mb-3"><!--Primeira Linha-->
+
+                            <label for="fonte" class="form-label">Fonte</label>
+                                <select name="fonte" id="fonte" class="form-select" aria-label="Default select example">
+                                    <option value="1" selected>Studybay</option>
+                                    <option value="2">Pessoal</option>
+                                </select>
+                        </div><!--FIM primeira Linha-->
+
+                        <div class="row mb-3"><!--Segunda Linha-->
+
+                            <label for="id_usuario" class="form-label">Especialista</label>
+                                <select name="id_usuario" id="id_usuario" class="form-select" aria-label="Default select example">
+                                    <?php foreach($this->view->usuarios as $indice => $usuarios){ ?>
+                                        <option value="<?= $usuarios['id'] ?>"><?= $usuarios['nome'] ?></option>
+                                    <?php } ?>
+                                </select>
+        
+                        </div> <!--FIM Segunda Linha-->  
+                        
+                        <div class="row mb-3"><!--Terceira Linha--> 
+                          
+                            <label for="arquivos" class="form-label">Diretório</label>
+                            <input type="text" class="form-control" id="arquivos" name="arquivos" placeholder="Coloque o link dos arquivos aqui">
+                            
+                        </div><!--FIM Terceira Linha--> 
+
+                        <div class="row mb-3"><!--Quarta Linha--> 
+
+                            <label for="descricao" class="form-label">Link</label>
+                            <input type="text" class="form-control" id="descricao" name="descricao">
+
+                        </div>
+
+                    </div><!--FIM Segunda coluna-->
+
+                </div><!--FIM Linha principal-->
+
+
+                
+                <div class="col mb-3">
+                        <label for="corpo" class="form-label">Estrutura do Estudo</label>
+                        <textarea class="form-control" id="corpo" name="corpo"  rows="6">
+                                
+                        </textarea>
+                </div>  
+
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </form> 
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        function updateOferta() {
+            // Obter o valor da Receita Bruta
+            var receitaBruta = parseFloat(document.getElementById("receita_bruta").value);
+
+            // Atualizar o valor da Oferta com o valor da Receita Bruta
+            document.getElementById("oferta").value = receitaBruta;
+        }
+
+        function calcularDatas() {
+            // Obter a data inserida no campo "Prazo Real"
+            var prazoReal = new Date(document.getElementById("prazo_real").value);
+
+            // Calcular o Prazo de Entrega (2 dias antes do Prazo Real)
+            var prazoEntrega = new Date(prazoReal);
+            prazoEntrega.setDate(prazoReal.getDate() - 2);
+
+            // Calcular o Prazo de Garantia (1 mês após o Prazo Real)
+            var prazoGarantia = new Date(prazoReal);
+            prazoGarantia.setMonth(prazoReal.getMonth() + 1);
+
+            // Formatar as datas para o formato "yyyy-MM-dd" para preencher os campos
+            var prazoEntregaFormatado = prazoEntrega.toISOString().split('T')[0];
+            var prazoGarantiaFormatado = prazoGarantia.toISOString().split('T')[0];
+
+            // Atualizar os campos "Prazo de Entrega" e "Prazo de Garantia"
+            document.getElementById("prazo_entrega").value = prazoEntregaFormatado;
+            document.getElementById("prazo_garantia").value = prazoGarantiaFormatado;
+        }
+    </script>

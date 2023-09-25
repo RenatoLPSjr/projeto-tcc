@@ -1,0 +1,65 @@
+.body-index {
+    background: linear-gradient(to top, black, gray);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo-index{
+    width: 200px;
+}
+
+.fundo-index{
+    background-color: rgb(57, 57, 57);
+    border: white 1px solid;
+    width: 400px;
+    height: 250px;
+}
+
+.fundo-registrar{
+    background-color: rgb(57, 57, 57);
+    border: white 1px solid;
+    padding: 10px 50px;
+    width: 600px;
+    height: 600px;
+}
+
+.head-registrar{
+    color: white;
+    border-bottom: solid 1px white;
+    padding-bottom: 10px;
+}
+
+.form-index{
+    color: white;
+}
+
+.form-index::placeholder{
+    color: rgb(177, 176, 176);
+}
+
+.input-index{
+    background-color:rgb(33, 33, 33);
+    color: white;
+}
+
+.input-index::placeholder{
+    color: rgb(177, 176, 176);
+}
+
+label[for="lembrar"] {
+    color: white;
+}
+
+.btn-index{
+    background-color: rgb(33, 33, 33);
+    text-decoration: none;
+    color: white;
+    border: white 1px solid;
+    text-align: center;
+    padding: 5px;
+    width: 160px;
+}

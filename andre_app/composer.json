@@ -1,0 +1,21 @@
+{
+	"description": "Projeto and",
+	"require": {
+		"php": ">= 7.0",
+		"google/apiclient": "^2.14",
+		"google/auth": "^1.10",
+		"google/apiclient-services": "^0.312.1"
+	},
+	"authors": [
+		{
+			"name": "Renato Lopes",
+			"email": "renato.lop.jr@gmail.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"App\\": "App/",
+			"MF\\": "vendor/MF/"
+		}
+	}
+}

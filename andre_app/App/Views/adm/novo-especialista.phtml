@@ -1,0 +1,65 @@
+<div class="container fundo-registrar-home">
+    <div class="mt-4">
+        <div>
+            <h3 class="head-registrar-home">Novo Especialista</h3>
+        </div>
+        
+        <div>
+            <form method="post" action="/adm/registrar-novo">
+                <div class="mb-3">
+                    <label for="nome" class="form-label ">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome completo aqui">
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="email" class="form-label ">Email</label>
+                        <input type="email" class="form-control " id="email" name="email" placeholder="digite seu email aqui">
+                    </div>
+                    <div class="col">
+                        <label for="Telefone" class="form-label">Telefone</label>
+                        <input type="number " class="form-control " id="telefone" name="telefone" placeholder="Digite seu telefone">
+                    </div>
+                </div>
+
+                <?php if (isset($_GET['login']) && $_GET['login'] == 'erro')  { ?>
+                    <div class="row">
+                        <div class="col">
+                            <span class="text text-danger">*Esse email já está em uso</span>
+                        </div>
+                    </div>
+                <?php } ?>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite a senha provisória">
+                    </div>
+                    <div class="col">
+                        <label for="especialidade" class="form-label">Especialidade</label>
+                        <input type="text" class="form-control " id="especialidade" name="especialidade" placeholder="Escolha a especialidade">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="areas" class="form-label ">Areas Preferidas</label>
+                    <input type="text" class="form-control" id="areas" name="areas" placeholder="Digite sua areas preferidas">
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-9">
+                        <label for="pix" class="form-label">Pix</label>
+                        <input type="text" class="form-control " id="pix" name="pix" placeholder="Digite seu pix">
+                    </div>
+                    <div class="col">
+                        <label for="sigla" class="form-label">Sigla</label>
+                        <input type="text" class="form-control " id="sigla" name="sigla" placeholder="Digite aqui">
+                    </div>
+                    
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button type="submit" class="btn-index">Confirmar</button>
+                    <a type="button" href="/" class="btn-index ms-2">Voltar</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

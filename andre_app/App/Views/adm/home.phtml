@@ -1,0 +1,209 @@
+<!-- Incluir a biblioteca do Google Charts -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+<!-- Incluir o código JavaScript -->
+<script type="text/javascript">
+
+    var meses = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+  // Função para desenhar o gráfico
+  function drawChart() {
+    // Dados para o gráfico
+    var data = google.visualization.arrayToDataTable([
+      ['Mês', 'Valor Bruto', 'Valor Ivestido', 'Valor Liquido'],
+      <?php foreach($this->view->graficos as $grafico_arr => $grafico) { ?>
+        ['<?= $grafico['data_mes'] ?>', <?= $grafico['soma_total_receita_bruta'] ?>, <?= $grafico['soma_total_investido'] ?>, <?= $grafico['total_liquido'] ?>],
+      <?php } ?>
+    ]);
+
+    function mapMes(numero) {
+        return meses[numero]; // Subtrai 1 para coincidir com os índices do array
+    }
+
+    data = new google.visualization.DataView(data);
+    data.setColumns([
+    {
+        calc: function (data, row) {
+        return mapMes(data.getValue(row, 0));
+        },
+        label: data.getColumnLabel(0),
+        type: 'string',
+    },
+    1, 2, 3 // Mantenha os outros valores de coluna como estão
+    ]);
+
+    // Opções do gráfico
+    var options = {
+        title: 'Valores Mensais',
+        curveType: 'none',
+        legend: { position: 'bottom' },
+        pointSize: 3, // Tamanho das bolinhas
+        dataLabels: {
+            textStyle: {
+            fontSize: 12, // Tamanho da fonte dos rótulos de dados
+            },
+            enabled: true, // Habilitar rótulos de dados
+            format: 'decimal', // Formato dos rótulos de dados (pode ser personalizado)
+        },
+
+        vAxis: {
+            format: 'currency', // Formato de moeda
+            prefix: 'R$ ', // Adicionar "R$" na frente dos valores
+        },
+
+        colors: ['black', 'blue', 'green'],
+    };
+
+    // Criar o gráfico
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    // Desenhar o gráfico
+    chart.draw(data, options);
+  }
+
+  // Carregar a biblioteca do Google Charts
+  google.charts.load('current', {'packages':['corechart']});
+
+  // Chamar a função drawChart após a biblioteca ser carregada
+  google.charts.setOnLoadCallback(drawChart);
+</script>
+
+<div class="container mt-3">
+
+    <div class="container home-1 d-flex justify-content-start">
+        <table class="mt-4 ">
+            <tr>
+                <th></th>
+                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+                    <th><?= $usuario['nome'] ?>[<?= $usuario['sigla'] ?>]</th>
+                <?php } ?>
+            <tr>
+            <tr>
+                <th>Receita Bruta</th>
+                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+                    <th>R$ <?= $usuario['total_receita_bruta'] ?>,00</th>
+                <?php } ?>
+            <tr>
+            <tr>
+                <th>Total Investido</th>
+                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+                    <th>R$ <?= $usuario['total_investido'] ?>,00</th>
+                <?php } ?>
+            <tr>
+            <tr>
+                <th>Total Liquido</th>
+                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+                    <th>R$ <?= $usuario['diferenca'] ?>,00</th>
+                <?php } ?>
+            <tr>
+            <tr>
+                <th>Pedido(1)</th>
+                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+                    <th><?= $usuario['status_1'] ?></th>
+                <?php } ?>
+            <tr>
+            <th>Fazendo(2)</th>
+                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+                    <th><?= $usuario['status_2'] ?></th>
+                <?php } ?>
+            <tr>
+            <th>Entregue(3)</th>
+                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+                    <th><?= $usuario['status_3'] ?></th>
+                <?php } ?>
+            <tr>
+            <th>Garantia(4)</th>
+                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+                    <th><?= $usuario['status_4'] ?></th>
+                <?php } ?>
+            <tr>
+            <th>Revisão(5)</th>
+                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+                    <th><?= $usuario['status_5'] ?></th>
+                <?php } ?>
+            <tr>
+            <th>Concluido(6)</th>
+                <?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+                    <th><?= $usuario['status_6'] ?></th>
+                <?php } ?>
+            <tr>
+        </table>
+        <a href="/adm/novo-especialista" class="btn btn-home-novo">Novo</a>
+    </div> 
+    
+    <div class="container mt-4 home-2 d-flex justify-content-start">
+        <table class="tabela-topo">
+            <tr>
+                <th></th>
+                <th>Total</th>
+                <th>Parceria Studby</th>
+                <th>Parceria Pessoal</th>   
+            </tr>
+            <tr>
+                <th>Total Bruto</th>
+                <?php $this->view->usuarios  ?>
+                    <th>R$ <?= $this->view->usuarios[0]['soma_total_receita_bruta'] ?>,00</th>
+                    <th>R$ <?= $this->view->usuarios[0]['soma_receita_por_fonte_1'] ?>,00</th>
+                    <th>R$ <?= $this->view->usuarios[0]['soma_receita_por_fonte_2'] ?>,00</th>
+
+            <tr>
+                <th>Total Investido</th>
+                <?php $this->view->usuarios  ?>
+                    <th>R$ <?= $this->view->usuarios[0]['soma_total_investido'] ?>,00</th>
+                    <th>R$ <?= $this->view->usuarios[0]['soma_oferta_1'] ?>,00</th>
+                    <th>R$ <?= $this->view->usuarios[0]['soma_oferta_2'] ?>,00</th>
+            <tr>
+            <tr>
+                <th>Total Liquido</th>
+                <?php $this->view->usuarios  ?>
+                    <th>R$ <?= $this->view->usuarios[0]['diferenca_total'] ?>,00</th>
+                    <th>R$ <?= $this->view->usuarios[0]['total_1'] ?>,00</th>
+                    <th>R$ <?= $this->view->usuarios[0]['total_2'] ?>,00</th>
+            <tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Clientes ativos</th>
+                <th><?= $this->view->usuarios[0]['status_ativos'] ?></th>  
+            </tr>
+            <tr>
+                <th>Enviado</th>
+                <th><?= $this->view->usuarios[0]['status_enviado'] ?></th> 
+            </tr>
+            <tr>
+                <th>Fazendo</th>
+                <th><?= $this->view->usuarios[0]['status_fazendo'] ?></th> 
+            </tr>
+            <tr>
+                <th>Entregue</th>
+                <th><?= $this->view->usuarios[0]['status_entregue'] ?></th> 
+            </tr>
+            <tr>
+                <th>Garantia</th>
+                <th><?= $this->view->usuarios[0]['status_garantia'] ?></th> 
+            </tr>
+            <tr>
+                <th>Revisão</th>
+                <th><?= $this->view->usuarios[0]['status_revisão'] ?></th> 
+            </tr>
+            <tr>
+                <th>Total</th>
+                <th><?= $this->view->usuarios[0]['status_todos'] ?></th> 
+            </tr>
+        </table>
+    </div>
+
+    <!-- Div para o gráfico -->
+    <div id="curve_chart" style="width: 1200px; height: 300px;">
+    </div>
+
+</div>
+
+
+
+
+

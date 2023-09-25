@@ -1,0 +1,61 @@
+<?php
+$usuarios = $this->view->usuarios;
+
+
+?>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h4>Edição Especialista</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" action="/atualizar_especialista">
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" value="<?= $usuarios['nome'] ?>">
+                    </div>
+                    <div class="col">
+                        <label for="sigla" class="form-label">Sigla</label>
+                        <input type="text" class="form-control" id="sigla" name="sigla" value="<?= $usuarios['sigla'] ?>">
+                    </div>
+
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" value="<?= $usuarios['email'] ?>">
+                    </div>
+                    <div class="col">
+                        <label for="especialidade" class="form-label">Especialidade</label>
+                        <input type="text" class="form-control" id="especilidade" name="especialidade"  value="<?= $usuarios['especialidade'] ?>">
+                    </div>
+                </div>
+                <div class="row mb-3">
+
+                    <div class="col">
+                        <label for="telefone" class="form-label">Número de telefone</label>
+                        <input type="number" class="form-control" id="telefone" name="telefone" value="<?= $usuarios['telefone'] ?>">
+                    </div>
+
+                    <div class="col">
+                        <label for="pix" class="form-label">Pix</label>
+                        <input type="text" class="form-control" id="pix" name="pix" value="<?= $usuarios['pix'] ?>">
+                    </div>
+                </div>
+
+                <input type="hidden" name="id" value="<?= $usuarios['id'] ?>">
+
+
+            
+                <button type="submit" class="btn btn-gestao-menor">Confirmar</button>
+               
+                <a href="/adm/gestao-especialista" class="btn btn-gestao-menor">Voltar</a>
+                
+
+            </form> 
+        </div>
+    </div>
+</div>  

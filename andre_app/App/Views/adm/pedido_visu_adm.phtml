@@ -1,0 +1,154 @@
+<?php 
+
+$usuario = $this->view->usuarios;
+$pedido = $this->view->pedidos;
+
+
+?>
+
+<div class="container mt-4 meio justify-content-center">
+
+        <div class="row justify-content-between">
+            <div class="col-8">
+                <p>Nome do Especialista:</p>
+            </div> 
+            <div class="col-4"> 
+            <p><?= $usuario['nome'] ?></p>
+            </div>
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-8">
+                <p>Oferta:</p>
+            </div> 
+            <div class="col-4"> 
+            <p> R$ <?= $pedido['oferta'] ?></p>
+            </div>
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-8">
+                <p>N de pag:</p>
+            </div> 
+            <div class="col-4"> 
+            <p><?= $pedido['paginas'] ?></p>
+            </div>
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-8">
+                <p>Data de entrega:</p>
+            </div> 
+            <div class="col-4"> 
+            <p><?= $pedido['prazo_entrega'] ?></p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-between">
+            <div class="col-8">
+                <p>Disciplina:</p>
+            </div> 
+            <div class="col-4"> 
+            <p><?= $pedido['disciplina'] ?></p>
+            </div>
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-8">
+                <p>Tipo de trabalho:</p>
+            </div> 
+            <div class="col-4"> 
+            <p><?= $pedido['tipo'] ?></p>
+            </div>
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-8">
+                <p>Metodologia:</p>
+            </div> 
+            <div class="col-4"> 
+            <p><?= $pedido['metodologia'] ?></p>
+            </div>
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-8">
+                <p>Garantia:</p>
+            </div> 
+            <div class="col-4"> 
+            <p><?= $pedido['prazo_garantia'] ?></p>
+            </div>
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-8">
+                <p>Observações:</p>
+            </div> 
+            <div class="col-4"> 
+            <p><?= $pedido['observacao'] ?></p>
+            </div>
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-8">
+                <p>Tema:</p>
+            </div> 
+            <div class="col-4"> 
+            <p><?= $pedido['titulo'] ?></p>
+            </div>
+        </div>
+
+        Estrutura do artigo ########################
+
+        <div class="row justify-content-between">
+        <div class="col-12">
+        <p><?php
+
+            $texto = $pedido['corpo'];
+            $texto_formatado = str_replace("\n", "@@newline@@", $texto);
+            $texto_exibicao = str_replace("@@newline@@", "<br>", $texto_formatado);
+            echo $texto_exibicao;
+            ?>
+        </p>
+        </div> 
+    </div>
+
+    <?php 
+        $valor_coluna = $pedido['status'];
+
+        if ($valor_coluna == 4 ) { ?>
+            
+            <form method="post" action="/pedido_pago">
+                <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
+                <p>Qual o status do trabalho?</p>
+                <button type="submit" name="aceita" onclick="confirmar()" value="1">Pagar</button>
+                <button type="submit" name="aceita" onclick="confirmar()" value="2">Revisão</button>
+                
+            </form>
+
+        <?php }else if ($valor_coluna == 3) { ?>
+
+            <form method="post" action="/pedido_entregue">
+                <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
+                <p>Qual status do trabalho?</p>
+                <button type="submit" name="aceita" onclick="confirmar()" value="2">Garantia</button>
+                <button type="submit" name="aceita" onclick="confirmar()" value="1">Revisão</button>
+                
+            </form>
+
+        <?php }else if ($valor_coluna == 5 ) { ?>
+
+            <form method="post" action="/pedido_revisao_final">
+                <input type="hidden" name="id" value="<?= $pedido['id'] ?>">
+                <p>Qual status do trabalho?</p>
+                <button type="submit" name="aceita" onclick="confirmar()" value="1">Fazendo</button>
+                <button type="submit" name="aceita" onclick="confirmar()" value="2">Garantia</button>
+                <button type="submit" name="aceita" onclick="confirmar()" value="3">Pago</button>
+        
+            </form>
+
+        <?php }?>
+</div>  
+
+
+</div>

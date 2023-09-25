@@ -1,0 +1,16 @@
+.fundo-registrar-home{
+    background-color:bisque;
+    border: black 1px solid;
+    padding: 10px 50px;
+    width: 600px;
+    height: 580px;
+    position: relative;
+    left: 50vh;
+    top: 3vh;
+}
+
+.head-registrar-home{
+    color: black;
+    border-bottom: solid 1px black;
+    padding-bottom: 10px;
+}

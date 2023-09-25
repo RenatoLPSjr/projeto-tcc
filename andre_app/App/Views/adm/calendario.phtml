@@ -1,0 +1,39 @@
+<div id="calendar-container" >
+    <div id="calendar"></div>
+
+
+</div>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    start: 'title',
+    height: 650,
+    events: [
+      <?php foreach($this->view->pedidos as $pedido_arr => $pedido) { ?>
+        {
+          id: '<?= $pedido_arr ?>', // Use uma ID única para cada evento
+          title: '<?= $pedido['titulo'] ?>',
+          start: '<?= $pedido['prazo_real'] ?>',
+          end: '<?= $pedido['prazo_entrega'] ?>',
+        },
+      <?php } ?>
+    ]
+  });
+  
+  calendar.render();
+
+  window.addEventListener('resize', function () {
+    calendar.updateSize();
+  });
+});
+</script>
+
+
+
+
+

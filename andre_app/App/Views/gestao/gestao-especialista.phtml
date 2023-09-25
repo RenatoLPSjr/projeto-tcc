@@ -1,0 +1,21 @@
+
+
+<?php foreach($this->view->usuarios as $usuario_arr => $usuario) { ?>
+    <div class="card-gestao">
+        <form method="post" action="/adm/gestao-editar">
+            <div class="gestao-topico">
+                <h3 class="nome-principal">Nome:<?= $usuario['nome'] ?></h3> 
+            </div>
+            <div class="gestao-topico">
+            <h3 class="nome-principal"> Especialidade:<?= $usuario['especialidade'] ?></h3> 
+            </div>
+            <div class="gestao-topico">
+            <h3 class="nome-principal"> Email:<?= $usuario['email'] ?></h3>
+            </div>
+            <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
+
+            <button type="submit" class="btn btn-gestao-novo">Editar</button>
+        </form>
+    </div>
+<?php } ?>
+

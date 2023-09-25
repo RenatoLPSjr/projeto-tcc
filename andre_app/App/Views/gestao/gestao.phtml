@@ -1,0 +1,45 @@
+
+
+
+<div class="head-gestao">
+
+  <div>
+    <a  type="button" href="/adm/gestao-novo" class="btn btn-gestao">
+      <h1>Novos</h1>
+    </a>
+  </div>
+  <div>
+    <a  type="button" href="/adm/gestao-especialista" class="btn btn-gestao">
+      <h1>Especialistas</h1>
+    </a>
+  </div>
+
+
+</div>
+
+
+
+<script>
+
+function buscarMensagensConversa(otherUser, mainUser, nomeUsuario) {
+        // Código para buscar as mensagens da conversa atualizado aqui
+        $.ajax({
+            url: '/buscar-mensagens',
+            method: 'POST',
+            data: { otherUser: otherUser, mainUser: mainUser, nomeUsuario: nomeUsuario },
+            success: function(response) {
+                var mensagens = JSON.parse(response);
+
+
+            },
+                error: function() {
+                    alert('Ocorreu um erro ao buscar as mensagens.');
+                }
+            });
+
+        }
+
+
+
+
+    </script>

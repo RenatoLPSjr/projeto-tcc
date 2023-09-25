@@ -1,0 +1,91 @@
+.head-gestao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 750px;
+    height: 300px;
+    margin: 50px 250px;
+}
+
+.btn-gestao{
+    text-decoration: none;
+    border: 1px solid black;
+    background-color: rgb(116, 4, 4);
+    color: bisque;
+    position: relative;
+}
+
+.btn-gestao:hover{
+    color: rgb(116, 4, 4);
+}
+
+.btn-gestao h1::before {
+    content: ''; /* Crie um elemento de linha vazio */
+    position: absolute; /* Posicionamento absoluto em relação ao elemento pai */
+    left: 50%; /* Comece no centro */
+    bottom: 0; /* Comece na parte inferior do elemento pai */
+    width: 0; /* Inicialmente, a largura é zero */
+    height: 2px; /* Altura do underline */
+    background-color: #333; /* Cor do underline */
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out; /* Transições para largura e posição esquerda */
+  }
+  
+  /* Efeito hover */
+  .btn-gestao h1:hover::before {
+    width: 100%; /* Largura total para ir até a ponta */
+    left: 0; /* Posição esquerda para começar da esquerda */
+  }
+
+.card-gestao{
+    width: 400px;
+    height: 200px;
+    border: 1px solid black;
+    background-color: rgba(214, 214, 214, 0.91);
+    top: 20px;
+    position: relative;
+    left: 20px;
+    display: block;
+    
+}
+  
+.btn-gestao-novo{
+    border: 1px solid black;
+    margin: 10px;
+    background-color: rgb(116, 4, 4);
+    color: white;
+}
+
+.nome-principal{
+    font-size: medium;
+    font-weight: 400;
+    padding-top: 5px;
+    margin-left: 10px;
+}
+
+.btn-gestao-menor{
+    border: 1px solid black;
+    margin: 10px;
+    background-color: rgb(116, 4, 4);
+    color: white;
+}
+
+.btn-gestao-menor:hover{
+    border: 1px solid black;
+    margin: 10px;
+    background-color: white;
+    color: black;
+}
+
+.input-container {
+    display: flex; /* Use flexbox para alinhar os elementos lado a lado */
+    align-items: center; /* Alinhe verticalmente os elementos no centro */
+}
+
+.label-gestao{
+    margin-right: 10px;
+}
+
+.form-gestao{
+    width: 40px;
+}

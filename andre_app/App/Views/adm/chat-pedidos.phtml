@@ -1,0 +1,166 @@
+<?php 
+
+
+$usuarios = $this->view->usuarios;
+$pedidos = $this->view->pedidos;
+
+
+?>
+
+
+<body>
+    <input type="hidden" id="main-user-id" value="<?= $_SESSION['id'] ?>">
+    <input type="hidden" id="main-pedido-id" value="<?= $pedidos['id'] ?>">
+    <div class="container chat-box mt-4 ms-4">
+        <div class="chat-header">
+            <h2>Sistema de Chat - Titulo:<?= $pedidos['titulo'] ?></h2>
+        </div>
+        <div class="chat-body row">
+            <div class="chat-contatos col-2">
+
+                <p class="nome-funcionario d-flex align-items-center justify-content-between" >
+                    <img class="img-user" src="/<?= $usuarios['path_imagem'] ?>" >
+                    <a><?= $usuarios['nome'] ?></a>
+                    <a href="#" class="botao-chamar btn btn-primary" data-id="<?= $usuarios['id'] ?>" data-nome="<?php echo $_SESSION['nome'] ?>">Chamar</a>
+                </p>
+            </div>
+            <div class="col-8">
+                <div class="chat-msg">
+                    <div class="chat-perfil">
+                        <h2 id="nome-usuario">Nome usuario</h2>
+                        <div class="mensagens">
+
+                        </div>
+                    </div>
+                    
+                </div>
+                <form id="form-chat" method="POST">
+                    <textarea class="form-control chat-text" id="texto-chat" rows="3"></textarea>
+                    <input type="submit" class="btn btn-primary" value="Enviar">
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+    function buscarMensagensConversaPedido(otherUser, mainUser,nomeUsuario, idPedido) {
+        // Código para buscar as mensagens da conversa atualizado aqui
+        $.ajax({
+            url: '/buscar-mensagens-pedido',
+            method: 'POST',
+            data: { otherUser: otherUser, mainUser: mainUser, nomeUsuario: nomeUsuario, idPedido: idPedido },
+            success: function(response) {
+                var mensagens = JSON.parse(response);
+                
+
+            if (mensagens && mensagens.length > 0) {
+                $('.chat-msg .mensagens').empty(); // Limpar as mensagens existentes
+
+                for (var i = 0; i < mensagens.length; i++) {
+                    var mensagem = mensagens[i];
+                    var classeMensagem = (mensagem.remetente === 'mainUser') ? 'mensagem-ida' : 'mensagem-volta';
+                    var nomeRemetente = (mensagem.remetente === 'mainUser') ? 'Administrador': nomeUsuario;
+
+                    var mensagemHtml = '<div class="message ' + classeMensagem + '">';
+                    mensagemHtml += '<strong>' + nomeRemetente + ':</strong> ' + mensagem.mensagem;
+                    mensagemHtml += '</div>';
+
+                    $('.chat-msg .mensagens').append(mensagemHtml);
+                    
+                }
+
+                var container = $('.chat-msg'); 
+                container.scrollTop(container.prop("scrollHeight"));
+            }
+            },
+                error: function() {
+                    alert('Ocorreu um erro ao buscar as mensagens.');
+                }
+            });
+
+        }
+
+    $(document).ready(function() {
+        $('.botao-chamar').click(function() {
+            var otherUser = $(this).data('id');
+            var mainUser = $('#main-user-id').val();
+            var idPedido = $('#main-pedido-id').val();
+
+            
+            $.ajax({
+                url: '/nova-conversa-pedido',
+                method: 'POST',
+                data: { otherUser: otherUser, mainUser: mainUser, idPedido: idPedido },
+                success: function(response) {
+                    var conversa = JSON.parse(response);
+
+                    var conversaElement = conversa[0]; // Acessar o primeiro elemento do array
+                    if (conversaElement && conversaElement.otherUser !== undefined) {
+                        var nomeUsuario = conversaElement.nomeUsuario;
+                        $('#nome-usuario').text(nomeUsuario);
+
+                        // Adicionar o nomeUsuario ao objeto data
+
+                       
+                        var data = {
+                            otherUser: otherUser,
+                            mainUser: mainUser,
+                            nomeUsuario: nomeUsuario,
+                            idPedido: idPedido
+                        };
+
+                        // Chamar a função para buscar as mensagens da conversa
+                        buscarMensagensConversaPedido(otherUser, mainUser, nomeUsuario, idPedido);
+
+                        // Função para enviar mensagem
+                        $('#form-chat').submit(function(event) {
+                            event.preventDefault(); // Impedir o envio do formulário
+
+                            var mensagem = $('#texto-chat').val(); // Obter a mensagem digitada
+
+                            $.ajax({
+                                url: '/enviar-mensagem-pedido', // Altere para o caminho correto do arquivo PHP
+                                method: 'POST',
+                                data: { otherUser: otherUser, mainUser: mainUser, mensagem: mensagem, idPedido: idPedido},
+                                success: function(response) {
+                                    console.log(idPedido)
+                                    // Atualizar o campo "mensagens" com a nova mensagem
+                                    $('.chat-msg .mensagens').append('<div class="message mensagem-ida"><strong>Adm:</strong> ' + mensagem + '</div>');
+
+                                    // Limpar o campo de entrada de mensagem
+                                    $('#texto-chat').val('');
+
+                                    var container = $('.chat-msg');
+                                    container.scrollTop(container.prop("scrollHeight"));
+
+                                    // Após enviar a mensagem, buscar as mensagens atualizadas
+                                    buscarMensagensConversaPedido(otherUser, mainUser, nomeUsuario, idPedido);
+                                   
+                                },
+                                error: function() {
+                                    alert('Ocorreu um erro ao enviar a mensagem.');
+                                }
+                            });
+                        });
+                    }
+
+
+                },
+                error: function() {
+                    alert('Ocorreu um erro ao buscar o usuário.');
+                }
+            });
+        });
+    });
+
+
+
+    </script>
+
+
+</body>
+</html>
